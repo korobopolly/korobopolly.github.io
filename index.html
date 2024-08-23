@@ -17,8 +17,8 @@ document.getElementById('fetchButton').addEventListener('click', () => {
     const apiKey = 'test_1fb756c153b0d7c70d226191aeaaf26c7bd80b8897221c506a9523b3b3dcf427efe8d04e6d233bd35cf2fabdeb93fb0d';
     var characterName = encodeURIComponent('구명'); // Korean character name encoded for URL
 
-    xhr.open("GET", https://open.api.nexon.com/maplestory/v1/id?character_name=%EA%B5%AC%EB%AA%85, true);
-    xhr.setRequestHeader('Authorization', Bearer ${apiKey});
+    xhr.open("GET", `https://open.api.nexon.com/maplestory/v1/id?character_name=${characterName}`, true);
+    xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -28,7 +28,7 @@ document.getElementById('fetchButton').addEventListener('click', () => {
                 responseElement.textContent = JSON.stringify(JSON.parse(xhr.responseText), null, 2);
             } else {
                 // If the request fails, display the error
-                responseElement.textContent = Error: ${xhr.status} ${xhr.statusText};
+                responseElement.textContent = `Error: ${xhr.status} ${xhr.statusText}`;
             }
             // Append the response element below the button
             document.body.appendChild(responseElement);
