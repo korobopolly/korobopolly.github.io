@@ -1,3 +1,44 @@
-<html>
-    hello world!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapleStory API Request</title>
+</head>
+<body>
+
+<h1>MapleStory Character ID Request</h1>
+
+<button id="fetchButton">Get Character ID</button>
+<pre id="response"></pre>
+
+<script>
+document.getElementById('fetchButton').addEventListener('click', () => {
+    // Replace 'YOUR_API_KEY_HERE' with your actual Nexon API key
+    const apiKey = 'test_1fb756c153b0d7c70d226191aeaaf26c7bd80b8897221c506a9523b3b3dcf427efe8d04e6d233bd35cf2fabdeb93fb0d';
+    const characterName = encodeURIComponent('구명'); // Korean character name encoded for URL
+
+    fetch(https://open.api.nexon.com/maplestory/v1/id?character_name=${characterName}, {
+        method: 'GET',
+        headers: {
+            'Authorization': Bearer ${apiKey}
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('response').textContent = Error: ${error.message};
+    });
+});
+</script>
+
+</body>
 </html>
