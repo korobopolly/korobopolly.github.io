@@ -9,9 +9,10 @@ git status
 
 //변경된 모든 내용 저장
 git add -A
+git add -U
 
 //변경사항 확정
-git commit -m "first commit"
+git commit -m "second commit"
 
 //원격 저장소에 업로드
 git push
