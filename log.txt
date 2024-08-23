@@ -1,0 +1,14 @@
+//경로
+cd git
+
+//경로
+cd korobopolly.github.io
+
+//변경된 모든 내용 저장
+git add -A
+
+//변경사항 확정
+git commit -m "first commit"
+
+//원격 저장소에 업로드
+git push
