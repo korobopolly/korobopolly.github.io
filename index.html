@@ -4,7 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapleStory API Request</title>
-    <script src="apikey.js"></script>
+ <!-- Firebase App (기본 Firebase SDK) -->
+ <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+ <!-- Firebase 제품의 SDK를 포함합니다. -->
+ <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script type="module">      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey           : "AIzaSyBJwiRs6NzoX32ZxXgUc5FtMdOPnxjTo8c",
+          authDomain       : "korobopolly.firebaseapp.com",
+          projectId        : "korobopolly",
+          storageBucket    : "korobopolly.appspot.com",
+          messagingSenderId: "81066462526",
+          appId            : "1:81066462526:web:4faf6cf5f4ab8e1b60306f",
+          measurementId    : "G-XLRLPQ72X9"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics();
+
+        // 특정 경로에서 데이터 가져오기
+        database.collection('database').doc('basedata').get()
+        .then((doc) => {
+            if (doc.exists) {
+            console.log('Document data:', doc.data());
+            } else {
+            console.log('No such document!');
+            }
+        })
+        .catch((error) => {
+            console.error('Error getting document:', error);
+        });
+      </script>
     <script src="main.js" defer></script>
 </head>
 <body>
