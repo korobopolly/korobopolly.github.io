@@ -1,5 +1,3 @@
-const maple_apiKey = process.env.MAPLE_APIKEY;
-
 document.getElementById('fetchButton').addEventListener('click', () => {
     const inputsrch     = document.getElementById('x_SRCH').value;
     const apiKey        = maple_apiKey;
