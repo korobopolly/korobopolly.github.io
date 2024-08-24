@@ -4,50 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapleStory API Request</title>
- <!-- Firebase App (기본 Firebase SDK) -->
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
- <!-- Firebase 제품의 SDK를 포함합니다. -->
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script type="module">      
+    <!-- Firebase App (기본 Firebase SDK) -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
-          apiKey           : "AIzaSyBJwiRs6NzoX32ZxXgUc5FtMdOPnxjTo8c",
-          authDomain       : "korobopolly.firebaseapp.com",
-          projectId        : "korobopolly",
-          storageBucket    : "korobopolly.appspot.com",
-          messagingSenderId: "81066462526",
-          appId            : "1:81066462526:web:4faf6cf5f4ab8e1b60306f",
-          measurementId    : "G-XLRLPQ72X9"
+            apiKey           : "AIzaSyBJwiRs6NzoX32ZxXgUc5FtMdOPnxjTo8c",
+            authDomain       : "korobopolly.firebaseapp.com",
+            projectId        : "korobopolly",
+            storageBucket    : "korobopolly.appspot.com",
+            messagingSenderId: "81066462526",
+            appId            : "1:81066462526:web:4faf6cf5f4ab8e1b60306f",
+            measurementId    : "G-XLRLPQ72X9"
         };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const analytics = firebase.analytics();
 
-        // 특정 경로에서 데이터 가져오기
-        database.collection('database').doc('basedata').get()
-        .then((doc) => {
-            if (doc.exists) {
-            console.log('Document data:', doc.data());
-            } else {
-            console.log('No such document!');
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db  = getFirestore(app);
+
+        // Function to fetch data from Firestore
+        async function fetchData() {
+            // const inputElement = document.getElementById('x_SRCH');
+            // const docId = inputElement.value;
+            // if (!docId) {
+            //     console.error('No document ID provided');
+            //     return;
+            // }
+
+            try {
+                const docRef = doc(db, 'database', 'basedata'); // Ensure the collection and docId are correct
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log('I found document!');
+                    //console.log('Document data:', docSnap.data());
+                    // Json Object를 저장하기
+                    localStorage.setItem("docSnap", JSON.stringify(docSnap.data()));
+                } else {
+                    console.log('No such document!');
+                }
+            } catch (error) {
+                console.error('Error getting document:', error);
             }
-        })
-        .catch((error) => {
-            console.error('Error getting document:', error);
-        });
-      </script>
+        }
+
+        // Set up event listener for the button
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const fetchButton = document.getElementById('fetchButton');
+        //     fetchButton.addEventListener('click', fetchData);
+        // });
+        //db 조회
+        fetchData();
+    </script>
     <script src="main.js" defer></script>
 </head>
 <body>
-
-<h1>MapleStory Character ID Request</h1>
-<input type="text" id="x_SRCH">
-<button id="fetchButton">Get Character ID</button>
-
+    <h1>MapleStory Character ID Request</h1>
+    <input type="text" id="x_SRCH" placeholder="Enter Your ID">
+    <button id="fetchButton">Get Character ID</button>
 </body>
 </html>
-
