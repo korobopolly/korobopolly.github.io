@@ -4,44 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapleStory API Request</title>
+    <script src="apikey.js"></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
 
 <h1>MapleStory Character ID Request</h1>
-
+<input type="text" id="x_SRCH">
 <button id="fetchButton">Get Character ID</button>
-
-<script>
-document.getElementById('fetchButton').addEventListener('click', () => {
-    const apiKey = 'test_1fb756c153b0d7c70d226191aeaaf26c7bd80b8897221c506a9523b3b3dcf427efe8d04e6d233bd35cf2fabdeb93fb0d';
-    const characterName = encodeURIComponent('구명'); // Korean character name encoded for URL
-    const url = `https://open.api.nexon.com/maplestory/v1/id?character_name=${characterName}`;
-
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'accept': 'application/json',
-            'x-nxopen-api-key': apiKey
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        const responseElement = document.createElement('pre');
-        responseElement.textContent = JSON.stringify(data, null, 2);
-        document.body.appendChild(responseElement);
-    })
-    .catch(error => {
-        const errorElement = document.createElement('pre');
-        errorElement.textContent = error.message;
-        document.body.appendChild(errorElement);
-    });
-});
-</script>
 
 </body>
 </html>
