@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 숨김 처리된 이미지를 위한 클래스 */
+        .hidden {
+            display: none;
+        }
+    </style>
     <title>MapleStory API Request</title>
     <!-- 파비콘 링크 추가 -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
@@ -67,5 +73,8 @@
     <h1>MapleStory Character ID Request</h1>
     <input type="text" id="x_SRCH" placeholder="Enter Your ID">
     <button id="fetchButton">Get Character ID</button>
+    <br>
+
+    <div id="content"></div>
 </body>
 </html>

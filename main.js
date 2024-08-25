@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const inputsrch     = document.getElementById('x_SRCH').value;
         const apiKey        = JSON.parse(localStorage.getItem("docSnap")).api;
         const characterName = encodeURIComponent(inputsrch); // Korean character name encoded for URL
-        const url           = `https://open.api.nexon.com/maplestory/v1/id?character_name=${characterName}`;
+        const url_id        = `https://open.api.nexon.com/maplestory/v1/id?character_name=${characterName}`;
 
-        fetch(url, {
+        //ocid 조회
+        fetch(url_id, {
             method: 'GET',
             headers: {
                 'accept'          : 'application/json',
@@ -20,15 +21,69 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            const responseElement       = document.createElement('pre');
-            responseElement.textContent = JSON.stringify(data, null, 2);
+            //const responseElement       = document.createElement('pre');
+            //responseElement.textContent = JSON.stringify(data, null, 2);
             //console.log(data.ocid);
-            document.body.appendChild(responseElement);
+            //document.getElementById('content').appendChild(responseElement);
+
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            
+            const year = yesterday.getFullYear();
+            const month = String(yesterday.getMonth() + 1).padStart(2, '0');
+            const day = String(yesterday.getDate()).padStart(2, '0');
+            
+            const formattedDate = `${year}-${month}-${day}`;
+
+            const ocid      = data.ocid;
+            const srchdate  = formattedDate;
+            const url_basic = `https://open.api.nexon.com/maplestory/v1/character/basic?ocid=${ocid}&date=${srchdate}`;
+            console.log(url_basic)
+
+            //basic 조회
+            fetch(url_basic, {
+                method: 'GET',
+                headers: {
+                    'accept'          : 'application/json',
+                    'x-nxopen-api-key': apiKey,
+                    'ocid'            : ocid,
+                    'date'            : srchdate
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const responseElement       = document.createElement('pre');
+                responseElement.textContent = JSON.stringify(data, null, 2);
+                //console.log(data.date);
+                document.getElementById('content').appendChild(responseElement);
+
+                // 이미지 URL 가져오기
+                const character_image = data.character_image;
+
+                // 이미지 요소 생성
+                const imgElement = document.createElement('img');
+                imgElement.src   = character_image;
+                imgElement.alt   = "MapleStory Character Image";
+
+                // 이미지 요소를 content 영역에 추가
+                document.getElementById('content').appendChild(imgElement);
+            })
+            .catch(error => {
+                const errorElement       = document.createElement('pre');
+                errorElement.textContent = error.message;
+                document.getElementById('content').appendChild(responseElement);
+            });
         })
         .catch(error => {
             const errorElement       = document.createElement('pre');
             errorElement.textContent = error.message;
-            document.body.appendChild(errorElement);
+            document.getElementById('content').appendChild(responseElement);
         });
     });
 
