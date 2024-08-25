@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            //const responseElement       = document.createElement('pre');
-            //responseElement.textContent = JSON.stringify(data, null, 2);
+            // const responseElement       = document.createElement('pre');
+            // responseElement.textContent = JSON.stringify(data, null, 2);
             //console.log(data.ocid);
             //document.getElementById('content').appendChild(responseElement);
 
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const ocid      = data.ocid;
             const srchdate  = formattedDate;
             const url_basic = `https://open.api.nexon.com/maplestory/v1/character/basic?ocid=${ocid}&date=${srchdate}`;
-            console.log(url_basic)
 
             //basic 조회
             fetch(url_basic, {
@@ -58,32 +57,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                const responseElement       = document.createElement('pre');
-                responseElement.textContent = JSON.stringify(data, null, 2);
-                //console.log(data.date);
-                document.getElementById('content').appendChild(responseElement);
+                //basic 조회 (휴면 - null)
+                const world_name = data.world_name;
+                if(world_name != null){
+                    const responseElement       = document.createElement('pre');
+                    responseElement.textContent = JSON.stringify(data, null, 2);
+                    document.getElementById('content').appendChild(responseElement);
+                    // 이미지 URL 가져오기
+                    const character_image = data.character_image;
 
-                // 이미지 URL 가져오기
-                const character_image = data.character_image;
+                    // 이미지 요소 생성
+                    const imgElement = document.createElement('img');
+                    imgElement.src   = character_image;
+                    imgElement.alt   = "MapleStory Character Image";
 
-                // 이미지 요소 생성
-                const imgElement = document.createElement('img');
-                imgElement.src   = character_image;
-                imgElement.alt   = "MapleStory Character Image";
-
-                // 이미지 요소를 content 영역에 추가
-                document.getElementById('content').appendChild(imgElement);
+                    // 이미지 요소를 content 영역에 추가
+                    document.getElementById('content').appendChild(imgElement);
+                }
+                //캐릭터가 휴면 상태입니다.
+                else{
+                    const responseElement       = document.createElement('pre');
+                    responseElement.textContent = '캐릭터가 휴면 상태입니다.';
+                    document.getElementById('content').appendChild(responseElement);
+                }
             })
             .catch(error => {
                 const errorElement       = document.createElement('pre');
                 errorElement.textContent = error.message;
-                document.getElementById('content').appendChild(responseElement);
+                document.getElementById('content').appendChild(errorElement);
             });
         })
         .catch(error => {
-            const errorElement       = document.createElement('pre');
-            errorElement.textContent = error.message;
+            // const errorElement       = document.createElement('pre');
+            // errorElement.textContent = error.message;
+            // document.getElementById('content').appendChild(errorElement);
+            const responseElement       = document.createElement('pre');
+            responseElement.textContent = '캐릭터가 존재하지않습니다.';
             document.getElementById('content').appendChild(responseElement);
+            console.log(error.message);
         });
     });
 
