@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // const responseElement       = document.createElement('pre');
-            // responseElement.textContent = JSON.stringify(data, null, 2);
+            const responseElement       = document.createElement('p');
+            responseElement.textContent = JSON.stringify(data, null, 2);
             //console.log(data.ocid);
-            //document.getElementById('content').appendChild(responseElement);
 
             const today = new Date();
             const yesterday = new Date(today);
@@ -59,10 +58,21 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 //basic 조회 (휴면 - null)
                 const world_name = data.world_name;
+                const responseElement       = document.createElement('pre');
+                responseElement.textContent = JSON.stringify(data, null, 2);
+                info.innerHTML = ''; // 이전 내용 지우기
+                content.innerHTML = ''; // 이전 내용 지우기
+                // document.getElementById('info').appendChild(responseElement);
+
                 if(world_name != null){
-                    const responseElement       = document.createElement('pre');
-                    responseElement.textContent = JSON.stringify(data, null, 2);
-                    document.getElementById('content').appendChild(responseElement);
+                    const infoDiv = document.createElement('div');
+                    infoDiv.style.padding = '10px';
+                    infoDiv.style.border = '1px solid #ddd';
+                    infoDiv.style.marginTop = '10px';
+                    infoDiv.style.marginBottom = '10px';
+                    infoDiv.style.backgroundColor = '#f9f9f9';
+                    document.getElementById('content').appendChild(infoDiv);
+
                     // 이미지 URL 가져오기
                     const character_image = data.character_image;
 
@@ -72,26 +82,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     imgElement.alt   = "MapleStory Character Image";
 
                     // 이미지 요소를 content 영역에 추가
-                    document.getElementById('content').appendChild(imgElement);
+                    infoDiv.appendChild(imgElement);
+
+                    const nameElement = document.createElement('h2');
+                    nameElement.textContent = `캐릭터 이름: ${data.character_name}`;
+                    infoDiv.appendChild(nameElement);
+
+                    const worldElement = document.createElement('p');
+                    worldElement.textContent = `서버 이름: ${data.world_name}`;
+                    infoDiv.appendChild(worldElement);
+
+                    const levelElement = document.createElement('p');
+                    levelElement.textContent = `레벨: ${data.character_level}`;
+                    infoDiv.appendChild(levelElement);
+
+                    const classElement = document.createElement('p');
+                    classElement.textContent = `직업: ${data.character_class}`;
+                    infoDiv.appendChild(classElement);
+
+                    const guildElement = document.createElement('p');
+                    guildElement.textContent = `길드: ${data.character_guild_name}`;
+                    infoDiv.appendChild(guildElement);
+
+                    const expElement = document.createElement('p');
+                    expElement.textContent = `경험치: ${data.character_exp_rate}%`;
+                    infoDiv.appendChild(expElement);
+
+                    const dateElement = document.createElement('p');
+                    dateElement.textContent = `갱신일자: ${data.date}`;
+                    infoDiv.appendChild(dateElement);
                 }
                 //캐릭터가 휴면 상태입니다.
                 else{
-                    const responseElement       = document.createElement('pre');
+                    const responseElement       = document.createElement('p');
                     responseElement.textContent = '캐릭터가 휴면 상태입니다.';
                     document.getElementById('content').appendChild(responseElement);
                 }
             })
             .catch(error => {
-                const errorElement       = document.createElement('pre');
+                const errorElement       = document.createElement('p');
                 errorElement.textContent = error.message;
                 document.getElementById('content').appendChild(errorElement);
             });
         })
         .catch(error => {
-            // const errorElement       = document.createElement('pre');
+            // const errorElement       = document.createElement('p');
             // errorElement.textContent = error.message;
             // document.getElementById('content').appendChild(errorElement);
-            const responseElement       = document.createElement('pre');
+            const responseElement       = document.createElement('p');
             responseElement.textContent = '캐릭터가 존재하지않습니다.';
             document.getElementById('content').appendChild(responseElement);
             console.log(error.message);
