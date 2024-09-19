@@ -67,6 +67,7 @@
         //db 조회
         fetchData();
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -75,7 +76,8 @@
     <button id="fetchButton">Get Character ID</button>
     <br>
 
-    <div id="info"></div>
+    <div id="info" style="display: none;"></div>
     <div id="content"></div>
+    <canvas id="line-chart" width="400" height="250"></canvas>
 </body>
 </html>
