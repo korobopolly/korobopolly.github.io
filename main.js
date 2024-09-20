@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         myChart = new Chart(document.getElementById("level-chart"), {
                             type: 'bar',
                             data: {
-                                labels: dates.reverse(),
+                                labels: dates,
                                 datasets: [{ 
                                     data: levels.reverse(),
                                     label: "레벨",
