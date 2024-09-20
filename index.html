@@ -8,6 +8,67 @@
         .hidden {
             display: none;
         }
+
+        /* 구글 스타일 검색 버튼 */
+        #fetchButton {
+            background-color: #f8f9fa;
+            color: #5f6368;
+            border: 1px solid #dadce0;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+        }
+
+        #fetchButton:hover {
+            background-color: #f1f3f4;
+            box-shadow: 0px 1px 6px rgba(32, 33, 36, 0.28);
+        }
+
+        #fetchButton:focus {
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(26, 115, 232, 0.5);
+        }
+
+        /* 중앙 정렬 */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* 입력 필드 스타일 */
+        #x_SRCH {
+            width: 300px;
+            height: 35px;
+            font-size: 16px;
+            padding: 0 12px;
+            border: 1px solid #dadce0;
+            border-radius: 24px;
+            box-sizing: border-box;
+            outline: none;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        #x_SRCH:focus {
+            border-color: #1a73e8;
+            box-shadow: 0px 0px 8px rgba(26, 115, 232, 0.5);
+        }
+
+        /* 두 개의 div를 화면에 반반 나누어 표시하기 위한 스타일 */
+        .chart-container {
+            width: 50%;
+            float: left; /* 두 개의 div가 나란히 배치되도록 설정 */
+            text-align: center; /* 중앙 정렬 */
+            padding: 10px;
+            box-sizing: border-box; /* 패딩이 포함된 크기를 유지 */
+        }
+
+        /* 캔버스를 크기에 맞게 표시하기 위한 스타일 */
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
     <title>korobopolly.github.io</title>
     <!-- 파비콘 링크 추가 -->
@@ -72,12 +133,18 @@
 </head>
 <body>
     <h1>MapleStory API 활용한 전적검색 사이트</h1>
-    <input type="text" id="x_SRCH" placeholder="Enter Your ID">
-    <button id="fetchButton">Get Character ID</button>
+    <input type="text" id="x_SRCH" placeholder="캐릭터명을 입력하세요.">
+    <button id="fetchButton">조회</button>
     <br>
 
     <div id="info" style="display: none;"></div>
     <div id="content"></div>
-    <canvas id="line-chart" width="400" height="250"></canvas>
+    <!-- 각 캔버스를 감싸는 div 추가 -->
+    <div class="chart-container">
+        <canvas id="exp-chart" width="400" height="250"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="level-chart" width="400" height="250"></canvas>
+    </div>
 </body>
 </html>
