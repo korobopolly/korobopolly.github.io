@@ -1,0 +1,34 @@
+baseURL = "https://korobopolly.github.io/"
+languageCode = "ko"
+title = "Claude Code & OMC Blog"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[params]
+  description = "Claude Code의 고급 활용법과 oh-my-claudecode 플러그인 가이드"
+  author = "Korobopolly"
+  github = "https://github.com/korobopolly"
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    style = "catppuccin-mocha"
+    lineNos = false
+    noClasses = true
+  [markup.goldmark.extensions]
+    typographer = false
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+[pagination]
+  pagerSize = 10
+
+enableRobotsTXT = true
+enableEmoji = true
