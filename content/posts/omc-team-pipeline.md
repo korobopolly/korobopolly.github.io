@@ -1,6 +1,6 @@
 ---
 title: "OMC Team과 Pipeline - 멀티 에이전트 협업의 모든 것"
-date: 2026-02-16T13:08:00+09:00
+date: 2026-02-16T13:09:00+09:00
 draft: false
 tags: ["OMC", "Team", "Pipeline", "멀티에이전트"]
 categories: ["OMC"]

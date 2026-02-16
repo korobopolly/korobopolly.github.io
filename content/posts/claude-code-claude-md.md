@@ -1,8 +1,9 @@
 ---
 title: "CLAUDE.md로 프로젝트 컨텍스트 관리하기"
-date: 2026-02-16T13:04:00+09:00
+date: 2026-02-16T13:01:00+09:00
 description: "CLAUDE.md 파일을 활용하여 Claude Code에 프로젝트 지침과 컨텍스트를 효과적으로 전달하는 방법"
 tags: ["Claude Code", "CLAUDE.md", "프로젝트 설정"]
+categories: ["Claude Code"]
 series: "Claude Code"
 draft: false
 ---

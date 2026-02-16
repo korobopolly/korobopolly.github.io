@@ -1,8 +1,9 @@
 ---
 title: "Claude Code 커스텀 슬래시 커맨드 만들기"
-date: 2026-02-16T13:05:00+09:00
+date: 2026-02-16T13:02:00+09:00
 description: "프로젝트에 맞는 커스텀 슬래시 커맨드를 만들어 반복 작업을 자동화하는 방법"
 tags: ["Claude Code", "슬래시 커맨드", "자동화"]
+categories: ["Claude Code"]
 series: "Claude Code"
 draft: false
 ---

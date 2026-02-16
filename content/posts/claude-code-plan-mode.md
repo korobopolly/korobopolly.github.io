@@ -1,11 +1,11 @@
 ---
 title: "Claude Code Plan Mode 완벽 가이드 - 체계적인 코드 설계"
-date: 2026-02-16T13:01:00+09:00
+date: 2026-02-16T13:05:00+09:00
 draft: false
 tags: ["Claude Code", "Plan Mode", "코드설계", "AI코딩"]
 categories: ["Claude Code"]
 series: "Claude Code"
-description: "Claude Code의 Plan Mode를 활용한 체계적인 코드 설계와 컨텍스트 관리 전략을 알아봅니다"
+description: "Claude Code의 Plan Mode를 활용한 체계적인 코드 설계 전략을 알아봅니다"
 ---
 
 ## Plan Mode란 무엇인가
@@ -88,74 +88,6 @@ ExitPlanMode를 호출하면 작성한 계획이 사용자에게 제시됩니다
 ### 4단계: 구현
 
 계획이 승인되면 Claude Code는 설계 문서를 따라 실제 코드를 작성합니다. 이미 명확한 로드맵이 있기 때문에 구현이 빠르고 정확합니다.
-
-## CLAUDE.md를 통한 컨텍스트 관리
-
-Plan Mode의 효과를 극대화하려면 프로젝트별 컨텍스트를 잘 관리해야 합니다. CLAUDE.md 파일은 프로젝트 루트에 위치하며 프로젝트별 규칙과 지침을 정의합니다.
-
-```markdown
-# CLAUDE.md
-
-## 프로젝트 개요
-Node.js + Express + MongoDB 기반 REST API
-
-## 코딩 스타일
-- ESLint + Prettier 사용
-- async/await 선호 (Promise 체인 지양)
-- 에러는 항상 next(error)로 전달
-
-## 아키텍처 규칙
-- 컨트롤러는 routes/ 디렉토리
-- 비즈니스 로직은 services/ 디렉토리
-- 데이터 접근은 models/ 디렉토리
-
-## 빌드 및 테스트
-- 개발 서버: npm run dev
-- 테스트: npm test
-- 린트: npm run lint
-
-## 중요 제약사항
-- 인증은 JWT 토큰 방식만 사용
-- 데이터베이스 마이그레이션은 migrate-mongo 사용
-- 민감한 정보는 반드시 .env 파일에 저장
-```
-
-Claude Code는 Plan Mode에서 CLAUDE.md를 참고하여 프로젝트의 규칙과 패턴에 맞는 설계를 제안합니다.
-
-## .claude/ 디렉토리 활용
-
-프로젝트별 Claude Code 설정은 `.claude/` 디렉토리에 저장됩니다.
-
-### settings.json
-
-```json
-{
-  "planModeRequired": false,
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@context7/mcp-server"]
-    }
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npm run lint-staged"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### agents/ 디렉토리
-
-커스텀 에이전트 정의를 저장할 수 있습니다. Plan Mode에서 특정 도메인 지식이 필요한 경우 유용합니다.
 
 ## 실전 예시: 사용자 인증 시스템 설계
 

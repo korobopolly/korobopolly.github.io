@@ -1,6 +1,6 @@
 ---
 title: "Claude Code MCP 서버 활용법 - 외부 도구와의 통합"
-date: 2026-02-16T13:02:00+09:00
+date: 2026-02-16T13:04:00+09:00
 draft: false
 tags: ["Claude Code", "MCP", "도구통합", "AI코딩"]
 categories: ["Claude Code"]

@@ -1,8 +1,9 @@
 ---
 title: "OMC Ecomode와 Ultrawork: 효율적 실행 전략"
-date: 2026-02-16T13:09:00+09:00
+date: 2026-02-16T13:08:00+09:00
 description: "토큰 비용을 절약하는 Ecomode와 최대 병렬 처리를 위한 Ultrawork 모드 활용법"
 tags: ["OMC", "Ecomode", "Ultrawork", "비용 최적화"]
+categories: ["OMC"]
 series: "OMC 플러그인"
 draft: false
 ---

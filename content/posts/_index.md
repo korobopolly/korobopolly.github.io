@@ -1,4 +1,4 @@
 ---
 title: "블로그 글 목록"
-description: "Claude Code와 OMC 플러그인에 관한 모든 글"
+description: "AI 도구, 웹 개발, 데이터베이스 등 실전 개발 기술에 관한 모든 글"
 ---
