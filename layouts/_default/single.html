@@ -44,17 +44,42 @@
     </div>
 
     <nav class="post-navigation">
-        {{ with .PrevInSection }}
-        <a href="{{ .RelPermalink }}" class="nav-prev">
-            <span class="nav-label">이전 글</span>
-            <span class="nav-title">{{ .Title }}</span>
-        </a>
-        {{ end }}
-        {{ with .NextInSection }}
-        <a href="{{ .RelPermalink }}" class="nav-next">
-            <span class="nav-label">다음 글</span>
-            <span class="nav-title">{{ .Title }}</span>
-        </a>
+        {{ if .Params.series }}
+            {{ $currentPage := . }}
+            {{ $seriesPages := (where .Site.RegularPages "Params.series" .Params.series).ByDate }}
+            {{ range $index, $page := $seriesPages }}
+                {{ if eq .Permalink $currentPage.Permalink }}
+                    {{ if gt $index 0 }}
+                    {{ with index $seriesPages (sub $index 1) }}
+                    <a href="{{ .RelPermalink }}" class="nav-prev">
+                        <span class="nav-label">이전 글</span>
+                        <span class="nav-title">{{ .Title }}</span>
+                    </a>
+                    {{ end }}
+                    {{ end }}
+                    {{ if lt (add $index 1) (len $seriesPages) }}
+                    {{ with index $seriesPages (add $index 1) }}
+                    <a href="{{ .RelPermalink }}" class="nav-next">
+                        <span class="nav-label">다음 글</span>
+                        <span class="nav-title">{{ .Title }}</span>
+                    </a>
+                    {{ end }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+        {{ else }}
+            {{ with .PrevInSection }}
+            <a href="{{ .RelPermalink }}" class="nav-prev">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">{{ .Title }}</span>
+            </a>
+            {{ end }}
+            {{ with .NextInSection }}
+            <a href="{{ .RelPermalink }}" class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">{{ .Title }}</span>
+            </a>
+            {{ end }}
         {{ end }}
     </nav>
 </article>
