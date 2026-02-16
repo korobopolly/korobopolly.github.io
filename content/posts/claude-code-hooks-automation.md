@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Hooks 시스템으로 워크플로우 자동화하기"
+title: "Claude Code Hooks - 워크플로우 자동화 시스템"
 date: 2026-02-16T13:03:00+09:00
 draft: false
 tags: ["Claude Code", "Hooks", "자동화", "워크플로우"]

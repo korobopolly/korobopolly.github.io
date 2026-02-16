@@ -1,7 +1,21 @@
 {{ define "main" }}
 <article class="post-single container">
     <header class="post-header">
-        <h1 class="post-title">{{ .Title }}</h1>
+        <h1 class="post-title">
+            {{ $parts := split .Title " - " }}
+            {{ if gt (len $parts) 1 }}
+                <span class="title-main">{{ index $parts 0 }}</span>
+                <span class="title-sub">{{ index $parts 1 }}</span>
+            {{ else }}
+                {{ $parts = split .Title ": " }}
+                {{ if gt (len $parts) 1 }}
+                    <span class="title-main">{{ index $parts 0 }}</span>
+                    <span class="title-sub">{{ index $parts 1 }}</span>
+                {{ else }}
+                    {{ .Title }}
+                {{ end }}
+            {{ end }}
+        </h1>
         <div class="post-meta">
             <time datetime="{{ .Date.Format "2006-01-02T15:04" }}">
                 {{ .Date.Format "2006-01-02 15:04" }}
