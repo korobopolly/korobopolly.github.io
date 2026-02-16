@@ -1,46 +1,14 @@
 {{ $dateFormat := "2006년 01월 02일 15:04" }}
 <div class="post-meta">
   <time datetime="{{ .Date.Format "2006-01-02T15:04" }}">{{ .Date.Format $dateFormat }}</time>
-  <span>·</span>
+  <span class="meta-sep">&middot;</span>
   <span>예상 소요시간 {{ .ReadingTime }}분</span>
   {{ if .Params.tags }}
-  <span>·</span>
+  <span class="meta-sep">&middot;</span>
   <div class="post-tags">
     {{ range .Params.tags }}
-    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-badge">{{ . }}</a>
+    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
     {{ end }}
   </div>
   {{ end }}
 </div>
-
-<style>
-.post-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  color: #666;
-  font-size: 0.9rem;
-  margin: 1rem 0;
-}
-
-.post-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.tag-badge {
-  padding: 0.25rem 0.75rem;
-  background-color: #f0f0f0;
-  color: #333;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  transition: background-color 0.2s;
-}
-
-.tag-badge:hover {
-  background-color: #e0e0e0;
-}
-</style>

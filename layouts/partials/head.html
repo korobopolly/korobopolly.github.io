@@ -4,20 +4,28 @@
 
 {{ partial "meta.html" . }}
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <!-- Dark mode flash prevention -->
 <script>
-    (function() {
-        const theme = localStorage.getItem('theme') || 'light';
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-    })();
+(function() {
+    const theme = localStorage.getItem('theme');
+    if (!theme) {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) document.documentElement.classList.add('dark');
+    } else if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+})();
 </script>
 
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">
-<link rel="sitemap" type="application/xml" href="{{ "sitemap.xml" | absURL }}">
+{{ if .Site.Params.github }}
+<link rel="me" href="{{ .Site.Params.github }}">
+{{ end }}
+
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}

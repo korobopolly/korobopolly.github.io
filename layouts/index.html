@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="container home-page">
     <section class="hero">
-        <h1 class="hero-title gradient-text">Korobopolly's Dev Blog</h1>
+        <h1 class="hero-title">{{ .Site.Title }}</h1>
         {{ with .Site.Params.description }}
         <p class="hero-subtitle">{{ . }}</p>
         {{ end }}
@@ -11,7 +11,7 @@
     <section class="series-section">
         <h2 class="section-title">시리즈</h2>
         <div class="series-grid">
-            {{ range .Site.Taxonomies.series.ByCount.Reverse }}
+            {{ range .Site.Taxonomies.series.ByCount }}
             <a href="{{ .Page.RelPermalink }}" class="series-card">
                 <h3 class="series-card-title">{{ .Page.Title }}</h3>
                 <p class="series-card-count">{{ .Count }}개의 포스트</p>
@@ -25,17 +25,29 @@
         <h2 class="section-title">처음이신가요?</h2>
         <div class="quick-start-grid">
             <a href="/posts/claude-code-claude-md/" class="quick-start-card">
-                <span class="quick-start-icon">📄</span>
+                <div class="quick-start-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
                 <h3 class="quick-start-card-title">CLAUDE.md 시작하기</h3>
                 <p class="quick-start-card-desc">프로젝트 컨텍스트를 설정하는 첫 번째 단계</p>
             </a>
             <a href="/posts/omc-introduction/" class="quick-start-card">
-                <span class="quick-start-icon">🚀</span>
+                <div class="quick-start-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
                 <h3 class="quick-start-card-title">OMC 플러그인 소개</h3>
                 <p class="quick-start-card-desc">oh-my-claudecode로 생산성 극대화하기</p>
             </a>
             <a href="/posts/claude-code-plan-mode/" class="quick-start-card">
-                <span class="quick-start-icon">🗺️</span>
+                <div class="quick-start-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                </div>
                 <h3 class="quick-start-card-title">Plan Mode 활용</h3>
                 <p class="quick-start-card-desc">복잡한 작업을 체계적으로 계획하기</p>
             </a>
@@ -45,18 +57,18 @@
     <section class="recent-posts">
         <h2 class="section-title">최근 글</h2>
         <div class="posts-list">
-            {{ range first 3 (where .Site.RegularPages "Section" "posts") }}
+            {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
             <article class="post-card">
                 <h3 class="post-card-title">
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                 </h3>
                 <div class="post-card-meta">
                     <time class="post-date" datetime="{{ .Date.Format "2006-01-02T15:04" }}">
-                        {{ .Date.Format "2006-01-02 15:04" }}
+                        {{ .Date.Format "2006-01-02" }}
                     </time>
                     {{ if .Params.tags }}
                     <div class="post-tags">
-                        {{ range .Params.tags }}
+                        {{ range first 3 .Params.tags }}
                         <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
                         {{ end }}
                     </div>
@@ -65,7 +77,7 @@
                 {{ with .Description }}
                 <p class="post-summary">{{ . }}</p>
                 {{ end }}
-                <a href="{{ .RelPermalink }}" class="read-more">Read more</a>
+                <a href="{{ .RelPermalink }}" class="read-more">더 읽기</a>
             </article>
             {{ end }}
         </div>

@@ -1,33 +1,38 @@
 {{ define "main" }}
-<div class="list-page container">
-    <header class="page-header">
+<div class="container list-page">
+    <div class="page-header">
         <h1 class="page-title">{{ .Title }}</h1>
-    </header>
+        {{ with .Description }}
+        <p class="page-description">{{ . }}</p>
+        {{ end }}
+    </div>
 
     <div class="posts-list">
         {{ range .Pages }}
         <article class="post-card">
-            <h3 class="post-card-title">
+            <h2 class="post-card-title">
                 <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h3>
+            </h2>
             <div class="post-card-meta">
                 <time class="post-date" datetime="{{ .Date.Format "2006-01-02T15:04" }}">
-                    {{ .Date.Format "2006-01-02 15:04" }}
+                    {{ .Date.Format "2006-01-02" }}
                 </time>
-            </div>
-            {{ if .Params.tags }}
-            <div class="post-tags">
-                {{ range .Params.tags }}
-                <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                {{ if .Params.tags }}
+                <div class="post-tags">
+                    {{ range first 3 .Params.tags }}
+                    <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                    {{ end }}
+                </div>
                 {{ end }}
             </div>
-            {{ end }}
             {{ with .Description }}
             <p class="post-summary">{{ . }}</p>
             {{ end }}
-            <a href="{{ .RelPermalink }}" class="read-more">Read more</a>
+            <a href="{{ .RelPermalink }}" class="read-more">더 읽기</a>
         </article>
         {{ end }}
     </div>
+
+    {{ partial "pagination.html" . }}
 </div>
 {{ end }}

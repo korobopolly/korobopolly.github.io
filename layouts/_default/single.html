@@ -8,26 +8,30 @@
             </time>
             <span class="reading-time">예상 소요시간 {{ .ReadingTime }}분</span>
         </div>
-    </header>
-    {{ if .Params.tags }}
-    <div class="post-tags">
-        {{ range .Params.tags }}
-        <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+        {{ if .Params.tags }}
+        <div class="post-tags">
+            {{ range .Params.tags }}
+            <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </div>
         {{ end }}
-    </div>
-    {{ end }}
+    </header>
 
     {{ if .Params.series }}
-    <div class="series-nav">
-        <h4>{{ .Params.series }} 시리즈</h4>
-        <ol>
-            {{ range where .Site.RegularPages "Params.series" .Params.series }}
-            <li{{ if eq .Permalink $.Permalink }} class="current"{{ end }}>
-                <a href="{{ .Permalink }}">{{ .Title }}</a>
+    <nav class="series-nav">
+        <div class="series-nav-title">{{ .Params.series }} 시리즈</div>
+        <ul class="series-nav-list">
+            {{ $currentPage := . }}
+            {{ range $index, $page := where .Site.RegularPages "Params.series" .Params.series }}
+            <li class="series-nav-item{{ if eq .Permalink $currentPage.Permalink }} current{{ end }}">
+                <a href="{{ .Permalink }}" class="series-nav-link">
+                    <span class="series-nav-number">{{ printf "%02d" (add $index 1) }}</span>
+                    <span class="series-nav-text">{{ .Title }}</span>
+                </a>
             </li>
             {{ end }}
-        </ol>
-    </div>
+        </ul>
+    </nav>
     {{ end }}
 
     <nav class="toc" id="toc">
@@ -42,13 +46,13 @@
     <nav class="post-navigation">
         {{ with .PrevInSection }}
         <a href="{{ .RelPermalink }}" class="nav-prev">
-            <span class="nav-label">Previous</span>
+            <span class="nav-label">이전 글</span>
             <span class="nav-title">{{ .Title }}</span>
         </a>
         {{ end }}
         {{ with .NextInSection }}
         <a href="{{ .RelPermalink }}" class="nav-next">
-            <span class="nav-label">Next</span>
+            <span class="nav-label">다음 글</span>
             <span class="nav-title">{{ .Title }}</span>
         </a>
         {{ end }}
