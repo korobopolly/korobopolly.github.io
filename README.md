@@ -1,23 +1,54 @@
-# Korobopolly Dev Blog
+# Korobopolly's Dev Blog
 
-개발 경험과 학습 내용을 공유하는 기술 블로그입니다.
+AI 도구, Java, Spring Boot, React 등 실전 개발 기술을 다루는 기술 블로그입니다.
+
+**https://korobopolly.github.io**
+
+## 시리즈
+
+| 시리즈 | 포스트 수 | 주요 내용 |
+|--------|-----------|-----------|
+| Claude Code | 5 | Plan Mode, MCP 서버, Hooks, CLAUDE.md, 커스텀 슬래시 커맨드 |
+| OMC 플러그인 | 4 | 소개, Autopilot/Ralph, Team/Pipeline, EcoMode/Ultrawork |
+| Java | 2 | Stream API, 최신 기능 (Sealed Classes, Records, Virtual Threads) |
+| Spring Boot | 2 | 프로젝트 시작하기, REST API |
+| React | 2 | 소개, Hooks |
+| Database | 2 | SQL 기초, 인덱스 최적화 |
+| Git | 2 | 기초, 브랜치 전략 |
+| Docker & 배포 | 2 | 기초, GitHub Actions CI/CD |
+| Hugo | 1 | Hugo로 블로그 시작하기 |
 
 ## Tech Stack
 
-- **Hugo**: 정적 사이트 생성기
-- **GitHub Pages**: 호스팅
-- **GitHub Actions**: 자동 배포
+- **Hugo** — 정적 사이트 생성기 (커스텀 테마)
+- **GitHub Pages** — 호스팅
+- **GitHub Actions** — `main` 푸시 시 자동 배포
 
-## Development
+## 프로젝트 구조
 
-```bash
-# 로컬 서버 실행
-hugo server -D
-
-# 빌드
-hugo
+```
+content/
+  posts/          # 블로그 포스트 (마크다운)
+  about.md        # 소개 페이지
+layouts/          # Hugo 레이아웃 템플릿
+static/
+  css/style.css   # 스타일시트
+  js/main.js      # 검색, 테마 전환 등
 ```
 
-## Deployment
+## 개발
 
-`main` 브랜치에 푸시하면 GitHub Actions를 통해 자동으로 배포됩니다.
+```bash
+# 로컬 서버 실행 (드래프트 포함)
+hugo server -D
+
+# 새 포스트 생성
+hugo new posts/my-post.md
+
+# 프로덕션 빌드
+hugo --gc --minify
+```
+
+## 배포
+
+`main` 브랜치에 푸시하면 GitHub Actions를 통해 자동으로 빌드 및 배포됩니다.
