@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="container series-page">
+    <h1 class="page-title">시리즈</h1>
+
+    {{ if .Site.Taxonomies.series }}
+    <div class="series-grid">
+        {{ range .Site.Taxonomies.series }}
+        <a href="{{ .Page.RelPermalink }}" class="series-card">
+            <h2 class="series-card-title">{{ .Page.Title }}</h2>
+            <p class="series-card-count">{{ .Count }}개의 포스트</p>
+        </a>
+        {{ end }}
+    </div>
+    {{ else }}
+    <p>시리즈가 없습니다.</p>
+    {{ end }}
+</div>
+{{ end }}

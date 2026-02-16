@@ -1,0 +1,60 @@
+{{ $paginator := .Paginator }}
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="pagination">
+  {{ if $paginator.HasPrev }}
+  <a href="{{ $paginator.Prev.URL }}" class="pagination-link">← 이전</a>
+  {{ end }}
+
+  <span class="pagination-pages">
+    {{ range $paginator.Pagers }}
+      {{ if eq . $paginator }}
+        <span class="pagination-current">{{ .PageNumber }}</span>
+      {{ else }}
+        <a href="{{ .URL }}" class="pagination-number">{{ .PageNumber }}</a>
+      {{ end }}
+    {{ end }}
+  </span>
+
+  {{ if $paginator.HasNext }}
+  <a href="{{ $paginator.Next.URL }}" class="pagination-link">다음 →</a>
+  {{ end }}
+</nav>
+
+<style>
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+}
+
+.pagination-link,
+.pagination-number {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.pagination-link:hover,
+.pagination-number:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination-current {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
+}
+</style>
+{{ end }}

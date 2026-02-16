@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {{ block "head" . }}
+        {{ partial "head.html" . }}
+    {{ end }}
+</head>
+<body>
+    <div class="gradient-bar"></div>
+    <div class="reading-progress" id="reading-progress"></div>
+
+    {{ partial "header.html" . }}
+
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ partial "footer.html" . }}
+
+    {{ partial "search.html" . }}
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

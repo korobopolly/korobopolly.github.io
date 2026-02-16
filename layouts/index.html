@@ -1,0 +1,77 @@
+{{ define "main" }}
+<div class="container home-page">
+    <section class="hero">
+        <h1 class="hero-title gradient-text">Claude Code &amp; OMC</h1>
+        {{ with .Site.Params.description }}
+        <p class="hero-subtitle">{{ . }}</p>
+        {{ end }}
+    </section>
+
+    {{ if .Site.Taxonomies.series }}
+    <section class="series-section">
+        <h2 class="section-title">시리즈</h2>
+        <div class="series-grid">
+            {{ range .Site.Taxonomies.series }}
+            <a href="{{ .Page.RelPermalink }}" class="series-card">
+                <h3 class="series-card-title">{{ .Page.Title }}</h3>
+                <p class="series-card-count">{{ .Count }}개의 포스트</p>
+            </a>
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+
+    <section class="quick-start">
+        <h2 class="section-title">처음이신가요?</h2>
+        <div class="quick-start-grid">
+            <a href="/posts/claude-code-claude-md/" class="quick-start-card">
+                <span class="quick-start-icon">📄</span>
+                <h3 class="quick-start-card-title">CLAUDE.md 시작하기</h3>
+                <p class="quick-start-card-desc">프로젝트 컨텍스트를 설정하는 첫 번째 단계</p>
+            </a>
+            <a href="/posts/omc-introduction/" class="quick-start-card">
+                <span class="quick-start-icon">🚀</span>
+                <h3 class="quick-start-card-title">OMC 플러그인 소개</h3>
+                <p class="quick-start-card-desc">oh-my-claudecode로 생산성 극대화하기</p>
+            </a>
+            <a href="/posts/claude-code-plan-mode/" class="quick-start-card">
+                <span class="quick-start-icon">🗺️</span>
+                <h3 class="quick-start-card-title">Plan Mode 활용</h3>
+                <p class="quick-start-card-desc">복잡한 작업을 체계적으로 계획하기</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="recent-posts">
+        <h2 class="section-title">최근 글</h2>
+        <div class="posts-list">
+            {{ range first 3 (where .Site.RegularPages "Section" "posts") }}
+            <article class="post-card">
+                <h3 class="post-card-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <div class="post-card-meta">
+                    <time class="post-date" datetime="{{ .Date.Format "2006-01-02T15:04" }}">
+                        {{ .Date.Format "2006-01-02 15:04" }}
+                    </time>
+                    {{ if .Params.tags }}
+                    <div class="post-tags">
+                        {{ range .Params.tags }}
+                        <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                {{ with .Description }}
+                <p class="post-summary">{{ . }}</p>
+                {{ end }}
+                <a href="{{ .RelPermalink }}" class="read-more">Read more</a>
+            </article>
+            {{ end }}
+        </div>
+        <div class="view-all">
+            <a href="/posts/" class="view-all-link">모든 글 보기 →</a>
+        </div>
+    </section>
+</div>
+{{ end }}

@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="container series-detail">
+    <h1 class="page-title">{{ .Title }}</h1>
+
+    {{ with .Description }}
+    <p class="series-description">{{ . }}</p>
+    {{ end }}
+
+    {{ range .Pages }}
+    <article class="post-item">
+        <h2 class="post-item-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <div class="post-item-meta">
+            <time class="post-date" datetime="{{ .Date.Format "2006-01-02T15:04" }}">
+                {{ .Date.Format "2006-01-02 15:04" }}
+            </time>
+        </div>
+        {{ with .Description }}
+        <p class="post-item-summary">{{ . }}</p>
+        {{ end }}
+    </article>
+    {{ end }}
+</div>
+{{ end }}
