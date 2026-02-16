@@ -8,7 +8,7 @@
     </div>
 
     <div class="posts-list">
-        {{ range .Pages }}
+        {{ range .Pages.ByDate }}
         <article class="post-item">
             <h3 class="post-item-title">
                 <a href="{{ .RelPermalink }}">{{ .Title }}</a>

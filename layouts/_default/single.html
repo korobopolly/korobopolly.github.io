@@ -22,7 +22,7 @@
         <div class="series-nav-title">{{ .Params.series }} 시리즈</div>
         <ul class="series-nav-list">
             {{ $currentPage := . }}
-            {{ range $index, $page := where .Site.RegularPages "Params.series" .Params.series }}
+            {{ range $index, $page := (where .Site.RegularPages "Params.series" .Params.series).ByDate }}
             <li class="series-nav-item{{ if eq .Permalink $currentPage.Permalink }} current{{ end }}">
                 <a href="{{ .Permalink }}" class="series-nav-link">
                     <span class="series-nav-number">{{ printf "%02d" (add $index 1) }}</span>
