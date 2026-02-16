@@ -1,3 +1,3 @@
 ---
-title: "Claude Code & OMC Blog"
+title: "Korobopolly's Dev Blog"
 ---

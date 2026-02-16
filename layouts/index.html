@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="container home-page">
     <section class="hero">
-        <h1 class="hero-title gradient-text">Claude Code &amp; OMC</h1>
+        <h1 class="hero-title gradient-text">Korobopolly's Dev Blog</h1>
         {{ with .Site.Params.description }}
         <p class="hero-subtitle">{{ . }}</p>
         {{ end }}
@@ -11,7 +11,7 @@
     <section class="series-section">
         <h2 class="section-title">시리즈</h2>
         <div class="series-grid">
-            {{ range .Site.Taxonomies.series }}
+            {{ range .Site.Taxonomies.series.ByCount.Reverse }}
             <a href="{{ .Page.RelPermalink }}" class="series-card">
                 <h3 class="series-card-title">{{ .Page.Title }}</h3>
                 <p class="series-card-count">{{ .Count }}개의 포스트</p>

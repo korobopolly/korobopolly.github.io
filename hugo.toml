@@ -1,12 +1,12 @@
 baseURL = "https://korobopolly.github.io/"
 languageCode = "ko"
-title = "Claude Code & OMC Blog"
+title = "Korobopolly's Dev Blog"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
 [params]
-  description = "Claude Code의 고급 활용법과 oh-my-claudecode 플러그인 가이드"
+  description = "AI 도구, Java, Spring Boot, React 등 실전 개발 기술을 다루는 블로그"
   author = "Korobopolly"
   github = "https://github.com/korobopolly"
 
