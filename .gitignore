@@ -3,3 +3,5 @@ resources/
 .hugo_build.lock
 apikey.js
 node_modules/
+.omc/
+.claude/
