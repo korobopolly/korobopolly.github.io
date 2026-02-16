@@ -10,9 +10,11 @@ AI 도구, Java, Spring Boot, React 등 실전 개발 기술을 다루는 기술
 |--------|-----------|-----------|
 | Claude Code | 5 | Plan Mode, MCP 서버, Hooks, CLAUDE.md, 커스텀 슬래시 커맨드 |
 | OMC 플러그인 | 4 | 소개, Autopilot/Ralph, Team/Pipeline, EcoMode/Ultrawork |
-| Java | 2 | Stream API, 최신 기능 (Sealed Classes, Records, Virtual Threads) |
-| Spring Boot | 2 | 프로젝트 시작하기, REST API |
-| React | 2 | 소개, Hooks |
+| Java | 4 | Stream API, 최신 기능, 동시성 프로그래밍, 디자인 패턴 |
+| Spring Boot | 4 | 프로젝트 시작하기, REST API, 이벤트 기반 아키텍처, 캐싱 전략 |
+| React | 4 | 소개, Hooks, 전역 상태 관리, E2E 테스팅 |
+| 네트워크 | 2 | TCP 소켓 프로그래밍, WebSocket/STOMP |
+| 보안 | 2 | JWT 인증 시스템, RSA/AES 암호화 |
 | Database | 2 | SQL 기초, 인덱스 최적화 |
 | Git | 2 | 기초, 브랜치 전략 |
 | Docker & 배포 | 2 | 기초, GitHub Actions CI/CD |
