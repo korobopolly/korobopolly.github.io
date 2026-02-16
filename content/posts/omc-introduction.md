@@ -14,24 +14,32 @@ oh-my-claudecode(OMC)는 Claude Code를 위한 멀티 에이전트 오케스트�
 
 단일 AI 에이전트가 모든 작업을 처리하는 대신, OMC는 각 작업의 특성에 맞는 전문 에이전트에게 업무를 위임합니다. 코드 탐색, 아키텍처 설계, 구현, 테스트, 검증, 리뷰 등 각 단계마다 최적화된 에이전트가 투입되어 작업의 품질과 효율성을 극대화합니다.
 
-## 설치 방법
+## Quick Start
 
-OMC 플러그인을 설치하는 방법은 두 가지입니다.
+### Step 1: Install
 
-터미널에서 직접 설치:
+Claude Code 플러그인 마켓플레이스에서 설치합니다.
 
-```bash
-npm install -g oh-my-claudecode
-omc setup
+```
+/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode
+/plugin install oh-my-claudecode
 ```
 
-또는 Claude Code에서 슬래시 커맨드로 설치:
+### Step 2: Setup
+
+설치 후 초기 설정을 실행합니다.
 
 ```
 /oh-my-claudecode:omc-setup
 ```
 
-설치가 완료되면 OMC의 모든 기능을 즉시 사용할 수 있습니다.
+### Step 3: Build something
+
+바로 사용해보세요. 나머지는 전부 자동입니다.
+
+```
+autopilot: build a REST API for managing tasks
+```
 
 ## 에이전트 카탈로그
 
