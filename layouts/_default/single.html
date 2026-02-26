@@ -77,7 +77,7 @@
             PDF 저장
         </button>
     </div>
-    <script id="post-raw-content" type="text/plain">{{ .RawContent }}</script>
+    <script id="post-raw-content" type="application/base64">{{ .RawContent | base64Encode }}</script>
 
     <nav class="post-navigation">
         {{ if .Params.series }}

@@ -450,8 +450,13 @@ function initDownloadButtons() {
       const rawEl = document.getElementById('post-raw-content');
       if (!rawEl) return;
 
+      // Decode base64 → UTF-8
+      const base64 = rawEl.textContent.trim();
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+      const content = new TextDecoder().decode(bytes);
+
       const frontmatter = `---\ntitle: "${rawTitle}"\nurl: ${window.location.href}\n---\n\n`;
-      const blob = new Blob([frontmatter + rawEl.textContent], { type: 'text/markdown;charset=utf-8' });
+      const blob = new Blob([frontmatter + content], { type: 'text/markdown;charset=utf-8' });
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement('a');
