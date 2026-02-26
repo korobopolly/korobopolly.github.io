@@ -1060,6 +1060,56 @@ article img {
   background: var(--accent-soft);
 }
 
+button.feedback-link {
+  font-family: inherit;
+  background: transparent;
+}
+
+/* Print styles for PDF download */
+@media print {
+  .site-header,
+  .gradient-bar,
+  .reading-progress,
+  .series-nav,
+  .toc,
+  .post-feedback,
+  .post-navigation,
+  .site-footer,
+  .search-overlay,
+  .copy-code-btn,
+  .code-lang-label {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  .post-single {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #ccc;
+    background: #f5f5f5 !important;
+    color: #333 !important;
+  }
+
+  pre code {
+    color: #333 !important;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+}
+
 /* Post Navigation */
 .post-navigation {
   display: grid;

@@ -433,6 +433,43 @@ function initCodeLanguageLabels() {
   });
 }
 
+// Download Buttons (MD / PDF)
+function initDownloadButtons() {
+  const mdBtn = document.getElementById('download-md');
+  const pdfBtn = document.getElementById('download-pdf');
+
+  if (!mdBtn && !pdfBtn) return;
+
+  const titleEl = document.querySelector('.post-title');
+  const rawTitle = titleEl ? titleEl.textContent.trim().replace(/\s+/g, ' ') : 'post';
+  const safeFileName = rawTitle.replace(/[\\/:*?"<>|]/g, '_');
+
+  // MD Download
+  if (mdBtn) {
+    mdBtn.addEventListener('click', () => {
+      const rawEl = document.getElementById('post-raw-content');
+      if (!rawEl) return;
+
+      const frontmatter = `---\ntitle: "${rawTitle}"\nurl: ${window.location.href}\n---\n\n`;
+      const blob = new Blob([frontmatter + rawEl.textContent], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = safeFileName + '.md';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  // PDF Download (via print dialog)
+  if (pdfBtn) {
+    pdfBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+}
+
 // Initialize all functions when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initDarkMode();
@@ -443,4 +480,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTableOfContents();
   initSearch();
   initCodeLanguageLabels();
+  initDownloadButtons();
 });
