@@ -77,7 +77,7 @@
             PDF 저장
         </button>
     </div>
-    <script id="post-raw-content" type="application/base64">{{ .RawContent | base64Encode }}</script>
+    <textarea id="post-raw-content" hidden>{{ .RawContent | htmlEscape }}</textarea>
 
     <nav class="post-navigation">
         {{ if .Params.series }}
