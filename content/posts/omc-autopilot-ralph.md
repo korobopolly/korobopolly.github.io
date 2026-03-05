@@ -1,5 +1,5 @@
 ---
-title: "OMC Autopilot과 Ralph - 완전 자동화 개발 워크플로우"
+title: "OMC Autopilot과 Ralph - 자동 실행 모드와 검증 루프"
 date: 2026-02-16T13:07:00+09:00
 draft: false
 tags: ["OMC", "Autopilot", "Ralph", "자동화"]
@@ -20,7 +20,7 @@ Autopilot은 사용자의 요청을 받아 분석부터 구현, 테스트, 검�
 
 ### 기본 사용법
 
-```
+```text
 /autopilot "JWT 기반 사용자 인증 API를 만들어줘"
 ```
 
@@ -60,7 +60,7 @@ Autopilot은 사용자의 요청을 받아 분석부터 구현, 테스트, 검�
 
 ### 실전 예시
 
-```
+```text
 /autopilot "블로그 포스트 CRUD API를 Express로 구현하고, PostgreSQL 연동, 입력 검증, 에러 핸들링 포함"
 ```
 
@@ -81,7 +81,7 @@ Ralph는 작업이 완벽하게 완료될 때까지 실행과 검증을 반복�
 
 ### 기본 사용법
 
-```
+```text
 /ralph "모든 단위 테스트가 통과하고 커버리지가 80% 이상이 될 때까지 버그를 수정해"
 ```
 
@@ -110,7 +110,7 @@ Ralph의 실행 사이클은 다음과 같습니다:
 
 ### 실전 예시
 
-```
+```text
 /ralph "API 응답 시간이 100ms 이하가 될 때까지 성능 최적화"
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: "oh-my-claudecode 소개 - AI 에이전트 오케스트레이션의 시작"
+title: "oh-my-claudecode 소개 - 에이전트 카탈로그, 모델 라우팅, 상태 관리"
 date: 2026-02-16T13:06:00+09:00
 draft: false
 tags: ["OMC", "에이전트", "플러그인", "AI코딩"]
@@ -20,7 +20,7 @@ oh-my-claudecode(OMC)는 Claude Code를 위한 멀티 에이전트 오케스트�
 
 Claude Code 플러그인 마켓플레이스에서 설치합니다.
 
-```
+```text
 /plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode
 /plugin install oh-my-claudecode
 ```
@@ -29,7 +29,7 @@ Claude Code 플러그인 마켓플레이스에서 설치합니다.
 
 설치 후 초기 설정을 실행합니다.
 
-```
+```text
 /oh-my-claudecode:omc-setup
 ```
 
@@ -37,7 +37,7 @@ Claude Code 플러그인 마켓플레이스에서 설치합니다.
 
 바로 사용해보세요. 나머지는 전부 자동입니다.
 
-```
+```text
 autopilot: build a REST API for managing tasks
 ```
 
@@ -88,7 +88,7 @@ OMC는 작업의 복잡도에 따라 적절한 Claude 모델을 선택할 수 �
 
 Task 호출 시 model 파라미터로 명시할 수 있습니다:
 
-```
+```text
 Task(subagent_type="oh-my-claudecode:architect", model="opus", prompt="이 모듈의 경계를 요약해줘")
 Task(subagent_type="oh-my-claudecode:executor", model="sonnet", prompt="로그인 플로우에 입력 검증 추가")
 Task(subagent_type="oh-my-claudecode:explorer", model="haiku", prompt="인증 관련 파일 찾기")
@@ -106,7 +106,7 @@ OpenAI의 gpt-5.3-codex 모델을 사용합니다. 코드 분석, 계획 검증,
 
 권장 역할: architect, planner, critic, analyst, code-reviewer, security-reviewer, tdd-guide
 
-```
+```text
 mcp__x__ask_codex(
   agent_role="architect",
   prompt="이 API 설계의 확장성 문제를 분석해줘",
@@ -120,7 +120,7 @@ Google의 gemini-3-pro-preview 모델을 사용합니다. 1M 토큰 컨텍스트
 
 권장 역할: designer, writer, vision
 
-```
+```text
 mcp__g__ask_gemini(
   agent_role="designer",
   prompt="이 컴포넌트 구조의 UX 개선점을 제안해줘",
@@ -134,7 +134,7 @@ MCP 도구는 Claude 에이전트보다 빠르고 비용 효율적이며, 읽기
 
 OMC는 작업 모드의 상태를 추적하고 지속합니다.
 
-```
+```text
 state_write(mode="autopilot", active=true, iteration=3, current_phase="implementation")
 state_read(mode="autopilot")
 state_clear(mode="autopilot")
@@ -148,7 +148,7 @@ state_clear(mode="autopilot")
 
 프로젝트별 메모를 관리하는 notepad 시스템을 제공합니다.
 
-```
+```text
 notepad_write_priority("이 프로젝트는 항상 TypeScript strict 모드 사용")
 notepad_write_working("API 엔드포인트 /auth/login 구현 완료")
 notepad_write_manual("데이터베이스 마이그레이션은 수동으로만 실행")
@@ -164,7 +164,7 @@ notepad는 `{worktree}/.omc/notepad.md`에 저장됩니다.
 
 프로젝트의 기술 스택, 빌드 규칙, 컨벤션을 영구 저장합니다.
 
-```
+```text
 project_memory_write({
   techStack: "React 18, TypeScript 5, Vite 4",
   build: "npm run build",

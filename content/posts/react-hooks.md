@@ -1,5 +1,5 @@
 ---
-title: "React Hooks 심화 가이드 - 실전 패턴과 커스텀 훅"
+title: "React Hooks 심화 - useEffect, useMemo, useReducer, 커스텀 Hook"
 date: 2026-02-16T13:15:00+09:00
 draft: false
 tags: ["React", "Hooks", "프론트엔드", "TypeScript"]
@@ -632,7 +632,7 @@ function App() {
 }
 ```
 
-## 마치며
+## 마무리
 
 React Hooks를 정리하면:
 

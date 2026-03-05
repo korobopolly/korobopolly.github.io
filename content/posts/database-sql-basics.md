@@ -1,5 +1,5 @@
 ---
-title: "SQL 기초와 데이터 모델링 - 관계형 데이터베이스 입문"
+title: "SQL 기초 - DDL, DML, JOIN, 서브쿼리, 데이터 모델링"
 date: 2026-02-16T13:20:00+09:00
 draft: false
 tags: ["SQL", "Database", "데이터모델링", "백엔드"]
@@ -285,7 +285,7 @@ FROM employees e RIGHT JOIN departments d ON e.department_id = d.id;
 
 ### JOIN 다이어그램
 
-```
+```text
 INNER JOIN: [A ∩ B]
 LEFT JOIN:  [A + (A ∩ B)]
 RIGHT JOIN: [(A ∩ B) + B]
@@ -531,7 +531,7 @@ CREATE TABLE departments (
 
 ### ERD 설계
 
-```
+```text
 users (1) ─── (N) orders (1) ─── (N) order_items (N) ─── (1) products
 ```
 
@@ -651,7 +651,7 @@ WHERE u.id NOT IN (
 
 ---
 
-## 정리
+## 마무리
 
 ### SQL 학습 로드맵
 

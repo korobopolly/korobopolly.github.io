@@ -1,5 +1,5 @@
 ---
-title: "Claude Code MCP 서버 활용법 - 외부 도구와의 통합"
+title: "Claude Code MCP 서버 - 설정, 주요 서버 소개, 커스텀 서버 구축"
 date: 2026-02-16T13:04:00+09:00
 draft: false
 tags: ["Claude Code", "MCP", "도구통합", "AI코딩"]
@@ -18,7 +18,7 @@ MCP(Model Context Protocol)는 AI 모델과 외부 도구를 연결하는 표준
 
 MCP는 클라이언트-서버 구조로 동작합니다.
 
-```
+```text
 Claude Code (클라이언트)
     ↕ MCP Protocol
 MCP 서버 (filesystem, context7, exa 등)
@@ -143,7 +143,7 @@ exa 서버는 웹 검색 기능을 제공합니다.
 
 MCP 서버가 등록되면 Claude Code는 자동으로 해당 서버의 도구들을 인식합니다. 도구 이름은 `mcp__서버명__도구명` 패턴을 따릅니다.
 
-```
+```text
 mcp__filesystem__read_file
 mcp__context7__query-docs
 mcp__exa__web_search_exa
@@ -310,7 +310,7 @@ main().catch(console.error);
 
 프로젝트에서 사용하는 라이브러리의 최신 문서를 실시간으로 참조할 수 있습니다.
 
-```
+```text
 사용자: "Prisma ORM에서 트랜잭션을 어떻게 사용하나요?"
 
 Claude Code:
@@ -349,7 +349,7 @@ GitHub Actions나 Jenkins와 연결하여 빌드 상태를 확인하거나 배�
 }
 ```
 
-```
+```text
 사용자: "최근 빌드가 실패한 이유를 분석해줘"
 
 Claude Code:

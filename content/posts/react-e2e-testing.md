@@ -1,5 +1,5 @@
 ---
-title: "React E2E 테스팅 - Playwright로 신뢰할 수 있는 테스트"
+title: "React E2E 테스트 - Playwright 설정, Locator, 네트워크 모킹, CI 통합"
 date: 2026-02-16T13:21:00+09:00
 draft: false
 tags: ["React", "테스팅", "Playwright", "E2E"]
@@ -16,7 +16,7 @@ E2E 테스트는 실제 사용자 관점에서 애플리케이션을 검증합�
 
 소프트웨어 테스트는 세 가지 레벨로 나뉩니다.
 
-```
+```text
         /\
        /  \  E2E 테스트 (적음, 느림, 비용 높음)
       /____\
@@ -93,7 +93,7 @@ npm init playwright@latest
 
 대화형 설치 과정:
 
-```
+```text
 ✔ Do you want to use TypeScript or JavaScript? · TypeScript
 ✔ Where to put your end-to-end tests? · tests
 ✔ Add a GitHub Actions workflow? · true
@@ -102,7 +102,7 @@ npm init playwright@latest
 
 생성되는 파일:
 
-```
+```text
 my-app/
 ├── tests/
 │   └── example.spec.ts

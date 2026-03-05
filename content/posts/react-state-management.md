@@ -1,5 +1,5 @@
 ---
-title: "React 전역 상태 관리 아키텍처 - Context 패턴과 라이브러리 선택"
+title: "React 상태 관리 - Context API, Provider 패턴, Redux vs Zustand 비교"
 date: 2026-02-16T13:20:00+09:00
 draft: false
 tags: ["React", "상태관리", "Context", "Architecture"]
@@ -14,7 +14,7 @@ Props drilling 문제를 겪어보신 적 있나요? 컴포넌트가 깊어질�
 
 ### Props Drilling 문제
 
-컴포넌트 트리가 깊어질수록 props를 여러 단계에 걸쳐 전달해야 하는 문제가 발생합니다.
+중간 컴포넌트들이 실제로 사용하지 않는 props를 단순히 아래로 전달만 하는 상황입니다.
 
 ```jsx
 // Props Drilling 예시
@@ -60,7 +60,7 @@ function UserMenu({ user, setUser }) {
 
 ### 해결 방법의 스펙트럼
 
-```
+```text
 Props → Composition → Context → 상태 관리 라이브러리
 (간단)                                        (복잡)
 ```
@@ -378,61 +378,6 @@ function App() {
 
 ## Provider 조합 전략
 
-### 기본 중첩 패턴
-
-여러 Context를 조합할 때 가장 직관적인 방법입니다.
-
-```jsx
-function App() {
-  return (
-    <AuthProvider>
-      <ThemeProvider>
-        <I18nProvider>
-          <NotificationProvider>
-            <Router>
-              <Routes />
-            </Router>
-          </NotificationProvider>
-        </I18nProvider>
-      </ThemeProvider>
-    </AuthProvider>
-  );
-}
-```
-
-**단점:** 중첩이 깊어지면 가독성이 떨어집니다.
-
-### Compose 패턴으로 개선
-
-```jsx
-// providers/AppProviders.jsx
-function compose(...Providers) {
-  return function ComposedProviders({ children }) {
-    return Providers.reduceRight((acc, Provider) => {
-      return <Provider>{acc}</Provider>;
-    }, children);
-  };
-}
-
-export const AppProviders = compose(
-  AuthProvider,
-  ThemeProvider,
-  I18nProvider,
-  NotificationProvider
-);
-
-// App.jsx
-function App() {
-  return (
-    <AppProviders>
-      <Router>
-        <Routes />
-      </Router>
-    </AppProviders>
-  );
-}
-```
-
 ### 조건부 Provider 로딩
 
 필요할 때만 Provider를 활성화합니다.
@@ -480,7 +425,7 @@ function ConditionalProviders({ children, features }) {
 
 **의존성 그래프 예시:**
 
-```
+```text
 AuthProvider (독립)
   ↓
 I18nProvider (AuthContext 사용)

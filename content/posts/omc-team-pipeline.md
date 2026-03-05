@@ -1,5 +1,5 @@
 ---
-title: "OMC Team과 Pipeline - 멀티 에이전트 협업의 모든 것"
+title: "OMC Team과 Pipeline - 멀티 에이전트 협업, 태스크 관리, 순차 체이닝"
 date: 2026-02-16T13:09:00+09:00
 draft: false
 tags: ["OMC", "Team", "Pipeline", "멀티에이전트"]
@@ -20,7 +20,7 @@ Team 모드는 Claude Code의 네이티브 팀 기능을 활용하여 여러 에
 
 ### 기본 사용법
 
-```
+```text
 /team 5 "풀스택 블로그 애플리케이션 구축: React 프론트엔드, Express API, PostgreSQL 데이터베이스, 인증, 배포 설정"
 ```
 
@@ -115,7 +115,7 @@ Team 모드에서 에이전트들은 SendMessage 도구로 통신합니다.
 
 특정 팀원에게 메시지 전송:
 
-```
+```text
 SendMessage(
   type="message",
   recipient="worker-2",
@@ -128,7 +128,7 @@ SendMessage(
 
 전체 팀원에게 중요한 공지:
 
-```
+```text
 SendMessage(
   type="broadcast",
   content="데이터베이스 스키마가 변경되었습니다. 모든 팀원은 마이그레이션을 실행해주세요.",
@@ -142,7 +142,7 @@ SendMessage(
 
 작업 완료 후 팀원에게 종료 요청:
 
-```
+```text
 SendMessage(
   type="shutdown_request",
   recipient="worker-3",
@@ -152,7 +152,7 @@ SendMessage(
 
 팀원은 shutdown_response로 승인 또는 거부:
 
-```
+```text
 SendMessage(
   type="shutdown_response",
   request_id="abc-123",
@@ -166,7 +166,7 @@ Team 모드의 핵심은 태스크 시스템입니다.
 
 ### 태스크 생성
 
-```
+```text
 TaskCreate(
   subject="API 엔드포인트 구현",
   description="RESTful API 엔드포인트 /api/posts CRUD 작업 구현. Express 라우터 사용, PostgreSQL 연동, 입력 검증 포함.",
@@ -182,19 +182,19 @@ TaskCreate(
 
 작업 시작:
 
-```
+```text
 TaskUpdate(taskId="1", status="in_progress")
 ```
 
 작업 완료:
 
-```
+```text
 TaskUpdate(taskId="1", status="completed")
 ```
 
 작업 삭제:
 
-```
+```text
 TaskUpdate(taskId="1", status="deleted")
 ```
 
@@ -202,13 +202,13 @@ TaskUpdate(taskId="1", status="deleted")
 
 Task #2가 Task #1 완료 후에만 시작 가능:
 
-```
+```text
 TaskUpdate(taskId="2", addBlockedBy=["1"])
 ```
 
 Task #3이 Task #4와 #5를 차단:
 
-```
+```text
 TaskUpdate(taskId="3", addBlocks=["4", "5"])
 ```
 
@@ -216,13 +216,13 @@ TaskUpdate(taskId="3", addBlocks=["4", "5"])
 
 전체 태스크 목록:
 
-```
+```text
 TaskList()
 ```
 
 특정 태스크 상세 정보:
 
-```
+```text
 TaskGet(taskId="3")
 ```
 
@@ -232,7 +232,7 @@ Pipeline 모드는 에이전트들을 순차적으로 연결하여 데이터를 
 
 ### 기본 사용법
 
-```
+```text
 /pipeline "사용자 피드백 데이터 분석 → 개선 사항 도출 → 기능 명세 작성 → 구현"
 ```
 
@@ -275,7 +275,7 @@ Team과 Ralph를 결합하면 팀 전체가 목표 달성까지 반복 작업합
 
 ### 사용법
 
-```
+```text
 /team ralph "완벽한 REST API 구축: 모든 엔드포인트 테스트 통과, 보안 검토 통과, 성능 기준 충족"
 ```
 
@@ -297,7 +297,7 @@ Team의 병렬 실행 능력과 Ralph의 반복 검증을 결합하여 품질과
 
 ### 초기 요청
 
-```
+```text
 /team 5 "풀스택 블로그: React 프론트엔드, Express API, PostgreSQL, JWT 인증, Tailwind CSS, 배포 설정"
 ```
 
@@ -346,7 +346,7 @@ Team의 병렬 실행 능력과 Ralph의 반복 검증을 결합하여 품질과
 
 worker-1 → worker-2:
 
-```
+```text
 SendMessage(
   type="message",
   recipient="worker-2",
@@ -357,7 +357,7 @@ SendMessage(
 
 worker-3 → team-lead:
 
-```
+```text
 SendMessage(
   type="message",
   recipient="team-lead",
@@ -386,7 +386,7 @@ Team 모드는 .omc/state/team-state.json에 상태를 저장합니다:
 
 모든 팀원에게 종료를 요청하고 팀을 해체:
 
-```
+```text
 /oh-my-claudecode:cancel
 ```
 

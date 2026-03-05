@@ -1,5 +1,5 @@
 ---
-title: "Git 핵심 개념 - 버전 관리의 기초부터 실전까지"
+title: "Git 핵심 개념 - 커밋, 되돌리기, Stash, 태그, 원격 저장소"
 date: 2026-02-16T13:24:00+09:00
 draft: false
 tags: ["Git", "버전관리", "개발도구", "협업"]
@@ -25,7 +25,7 @@ Git은 **분산 버전 관리 시스템**(Distributed Version Control System)으
 
 Git은 파일을 3가지 상태로 관리합니다.
 
-```
+```text
 Working Directory → Staging Area → Repository
    (작업 디렉토리)    (스테이징 영역)    (저장소)
         ↓                ↓              ↓
@@ -470,7 +470,7 @@ git commit -m "docs(readme): 설치 가이드 업데이트"
 4. **본문은 "무엇을, 왜"** 중심으로 작성
 5. **하나의 커밋은 하나의 논리적 변경**만 포함
 
-## 마치며
+## 마무리
 
 Git은 현대 소프트웨어 개발의 필수 도구입니다. 이 글에서 다룬 기본 개념과 명령어를 익히면:
 

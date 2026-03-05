@@ -1,5 +1,5 @@
 ---
-title: "Java 동시성 프로그래밍 - ThreadPool부터 동기화까지"
+title: "Java 동시성 프로그래밍 - ExecutorService, 동기화, Context Switching"
 date: 2026-02-16T13:16:00+09:00
 draft: false
 tags: ["Java", "동시성", "멀티스레딩", "ThreadPool"]
@@ -723,6 +723,146 @@ CompletableFuture.supplyAsync(() -> {
 
 `thenCompose`는 중첩된 Future를 평탄화합니다 (flatMap과 유사).
 
+## Context Switching (컨텍스트 스위칭)
+
+스레드를 많이 만든다고 항상 빨라지는 것은 아닙니다. CPU가 여러 스레드를 전환하는 비용을 이해해야 합니다.
+
+### 컨텍스트 스위칭이란
+
+```text
+CPU 코어 1개는 한 순간에 1개의 스레드만 실행 가능
+→ 여러 스레드를 번갈아가며 실행
+→ 이 전환 작업 = Context Switching
+```
+
+스레드 전환 1회마다 다음 작업이 발생합니다:
+
+1. 현재 스레드 상태(레지스터, 프로그램 카운터 등) 저장
+2. 다음 스레드 상태 불러오기
+3. CPU 캐시 초기화 (캐시 미스 발생)
+
+전환 1회당 약 1~10 마이크로초가 소요됩니다.
+
+### 스레드가 많을수록 나빠지는 이유
+
+```text
+스레드 2개:    실제작업 90% / 전환비용 10%
+스레드 1000개: 실제작업 20% / 전환비용 80%
+```
+
+스레드 수가 늘어날수록 실제 작업보다 전환 비용이 커져 전체 성능이 오히려 저하됩니다.
+
+### OS가 강제로 번갈아 실행하는 이유 (선점형 스케줄링)
+
+- **응답성 보장**: 긴 작업 중에도 다른 스레드가 CPU 시간을 확보
+- **CPU 낭비 방지**: I/O 대기 중인 스레드의 자리를 다른 스레드가 채움
+- **공평성**: 특정 스레드의 CPU 독점 방지
+
+## 스레드 최대 개수와 적정 수
+
+### 제한 요소
+
+| 요소 | 내용 |
+|------|------|
+| 메모리 | 스레드 1개당 512KB~1MB 스택 / RAM 8GB 기준 이론상 최대 8,000~16,000개 |
+| OS 제한 | Linux 기준 수천~수만 사이 |
+| Context Switching | 스레드가 많을수록 전환 비용 증가 |
+
+### 실무 권장 개수
+
+```text
+CPU 바운드 작업 (연산이 많은): CPU 코어 수 + 1
+I/O 바운드 작업 (대기가 많은): CPU 코어 수 * 2~4
+```
+
+`코어 수 * 2`는 스위칭을 없애는 것이 아니라, I/O 대기 중 놀고 있는 CPU를 최대한 활용하기 위한 숫자입니다.
+
+```text
+적정 스레드 수 = CPU 코어 수 * (1 + 대기시간/실행시간)
+```
+
+예를 들어 4코어 CPU에서 작업의 75%가 I/O 대기라면: `4 * (1 + 0.75/0.25) = 16`개가 적정입니다.
+
+## LinkedBlockingQueue 내부 동작 원리
+
+`ThreadPoolExecutor`의 작업 큐로 자주 사용되는 `LinkedBlockingQueue`가 어떻게 스레드 안전성을 보장하는지 알아봅니다.
+
+### 간섭 없는 이유 3가지
+
+**1. 분리된 Lock - 동시 접근 방지**
+
+```text
+putLock  → put 전용 락
+takeLock → take 전용 락
+→ put과 take가 서로 다른 락 사용 → 동시에 넣고 꺼내도 충돌 없음
+```
+
+일반적인 큐와 달리 put/take가 서로 다른 락을 사용하므로, 생산자와 소비자가 동시에 동작할 수 있습니다.
+
+**2. Blocking - 스레드 자동 대기/깨움**
+
+```text
+큐가 비면 → take() 호출한 워커 스레드가 자동 sleep
+데이터 들어오면 → 자동으로 깨어남
+→ CPU 낭비 없이 대기
+```
+
+바쁜 대기(busy waiting) 없이 효율적으로 동작합니다.
+
+**3. 메모리 가시성 보장**
+
+```text
+내부적으로 volatile + Lock 사용
+→ 한 스레드가 넣은 값을 다른 스레드가 반드시 볼 수 있음
+```
+
+### 워커 1개 vs 워커 N개
+
+단일 워커와 다중 워커의 차이를 이해하는 것이 중요합니다.
+
+```text
+워커 1개 (newSingleThreadExecutor):
+명령1 (30초) → 처리 중...
+명령2 (30초) → 큐 대기 (30초 후 시작)
+
+워커 3개 (newFixedThreadPool(3)):
+명령1 (30초) → 워커1 처리 중...
+명령2 (30초) → 워커2 처리 중...  → 동시 실행
+명령3 (30초) → 워커3 처리 중...  → 동시 실행
+```
+
+```java
+// 고정 워커 (권장) - 스레드 수 예측 가능
+ExecutorService worker = Executors.newFixedThreadPool(4);
+
+// 단일 워커 - 순서 보장이 필요할 때
+ExecutorService worker = Executors.newSingleThreadExecutor();
+
+// 유동 워커 - 스레드 무한 생성 위험, 짧은 작업에만 사용
+ExecutorService worker = Executors.newCachedThreadPool();
+```
+
+다중 워커에서 큐를 공유하는 패턴:
+
+```java
+private final BlockingQueue<String> commandQueue = new LinkedBlockingQueue<>();
+private final ExecutorService worker = Executors.newFixedThreadPool(4);
+
+@PostConstruct
+public void start() {
+    for (int i = 0; i < 4; i++) {
+        worker.submit(() -> {
+            while (true) {
+                String cmd = commandQueue.take(); // 큐가 비면 자동 대기
+                doLongTask(cmd);                  // 4개 동시 처리
+            }
+        });
+    }
+}
+```
+
+`LinkedBlockingQueue`가 스레드 안전하므로 4개의 워커가 하나의 큐에서 동시에 작업을 꺼내도 안전합니다.
+
 ## 실전 예시: 파일 병렬 전송 시나리오
 
 실제 파일 동기화 시스템에서 여러 파티션의 파일을 병렬로 전송하는 예제입니다.
@@ -920,11 +1060,13 @@ public class ParallelFileSyncSystem {
 Java 동시성 프로그래밍의 핵심을 정리하면:
 
 1. **ThreadPool 사용**: 직접 Thread 생성 대신 ExecutorService 사용
-2. **적절한 크기 설정**: CPU 집약적 작업은 코어 수만큼, I/O 작업은 더 많이
-3. **동시성 컬렉션**: HashMap 대신 ConcurrentHashMap
-4. **Atomic 클래스**: 간단한 카운터나 플래그는 AtomicInteger/AtomicBoolean
-5. **Semaphore**: 자원 접근 수 제한
-6. **CompletableFuture**: 비동기 작업 체이닝과 조합
-7. **항상 종료 처리**: shutdown() + awaitTermination()
+2. **적절한 크기 설정**: CPU 바운드는 코어 수 + 1, I/O 바운드는 코어 수 * 2~4
+3. **Context Switching 인식**: 스레드를 무한정 늘리면 전환 비용이 실제 작업을 압도
+4. **LinkedBlockingQueue**: 생산자-소비자 패턴의 핵심, 분리 락으로 동시 put/take 가능
+5. **동시성 컬렉션**: HashMap 대신 ConcurrentHashMap
+6. **Atomic 클래스**: 간단한 카운터나 플래그는 AtomicInteger/AtomicBoolean
+7. **Semaphore**: 자원 접근 수 제한
+8. **CompletableFuture**: 비동기 작업 체이닝과 조합
+9. **항상 종료 처리**: shutdown() + awaitTermination()
 
 동시성은 어렵지만, Java가 제공하는 도구를 잘 활용하면 안전하고 효율적인 멀티스레드 프로그램을 만들 수 있습니다. 작은 예제부터 시작해서 점진적으로 복잡한 시스템으로 확장해 보세요.

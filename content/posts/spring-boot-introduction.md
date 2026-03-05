@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot 시작하기 - 프로젝트 생성부터 실행까지"
+title: "Spring Boot 시작하기 - 프로젝트 생성, 구조, 첫 실행"
 date: 2026-02-16T13:12:00+09:00
 draft: false
 tags: ["Spring Boot", "Java", "웹개발", "백엔드"]
@@ -52,7 +52,7 @@ IntelliJ IDEA나 VS Code에서도 Spring Initializr 플러그인을 통해 직�
 
 ### Gradle을 사용한 프로젝트 구조
 
-```
+```text
 my-spring-boot-app/
 ├── src/
 │   ├── main/
@@ -190,7 +190,7 @@ dependencies {
 
 애플리케이션 실행 시 다음과 같은 로그를 볼 수 있습니다:
 
-```
+```text
 Tomcat started on port(s): 8080 (http)
 Started DemoApplication in 2.345 seconds
 ```
@@ -260,7 +260,7 @@ dependencies {
 
 ### 프로필별 설정 파일
 
-```
+```text
 resources/
 ├── application.properties          (공통 설정)
 ├── application-dev.properties      (개발 환경)
@@ -476,7 +476,7 @@ dependencies {
 }
 ```
 
-## 마치며
+## 마무리
 
 Spring Boot는 설정보다 **관례(Convention over Configuration)**를 우선시하여 개발자가 비즈니스 로직에 집중할 수 있게 해줍니다.
 

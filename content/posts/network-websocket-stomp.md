@@ -1,10 +1,10 @@
 ---
-title: "WebSocket과 STOMP 프로토콜 - 실시간 양방향 통신"
-date: 2026-02-16T13:23:00+09:00
+title: "Spring Boot WebSocket - STOMP 프로토콜과 실시간 통신 구현"
+date: 2026-02-16T13:20:00+09:00
 draft: false
-tags: ["네트워크", "WebSocket", "STOMP", "실시간"]
-categories: ["네트워크"]
-series: "네트워크"
+tags: ["Spring Boot", "WebSocket", "STOMP", "실시간"]
+categories: ["Spring Boot"]
+series: "Spring Boot"
 description: "WebSocket과 STOMP 프로토콜을 활용한 실시간 양방향 통신 구현 방법을 알아봅니다"
 ---
 
@@ -97,7 +97,7 @@ WebSocket은 HTTP 위에서 동작하지만 독립적인 프로토콜입니다.
 
 클라이언트가 HTTP 요청으로 WebSocket 연결을 시작합니다.
 
-```http
+```text
 GET /chat HTTP/1.1
 Host: localhost:8080
 Upgrade: websocket
@@ -108,7 +108,7 @@ Sec-WebSocket-Version: 13
 
 서버가 응답하면 프로토콜이 WebSocket으로 전환됩니다.
 
-```http
+```text
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
@@ -117,7 +117,7 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 
 ### WebSocket 프레임 구조
 
-```
+```text
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-------+-+-------------+-------------------------------+
@@ -246,7 +246,7 @@ WebSocket만으로는 메시지 라우팅, 구독 관리가 어렵습니다. STO
 
 ### STOMP 프레임 구조
 
-```
+```text
 COMMAND
 header1:value1
 header2:value2
@@ -255,7 +255,7 @@ Body^@
 ```
 
 **예시: 구독 (SUBSCRIBE)**
-```
+```text
 SUBSCRIBE
 id:sub-1
 destination:/topic/chat
@@ -264,7 +264,7 @@ destination:/topic/chat
 ```
 
 **예시: 메시지 전송 (SEND)**
-```
+```text
 SEND
 destination:/app/chat
 content-type:application/json
@@ -273,7 +273,7 @@ content-type:application/json
 ```
 
 **예시: 메시지 수신 (MESSAGE)**
-```
+```text
 MESSAGE
 destination:/topic/chat
 message-id:123

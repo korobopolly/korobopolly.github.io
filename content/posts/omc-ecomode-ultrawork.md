@@ -1,5 +1,5 @@
 ---
-title: "OMC Ecomode와 Ultrawork - 효율적 실행 전략"
+title: "OMC Ecomode와 Ultrawork - 토큰 절약 모드, 병렬 처리 엔진"
 date: 2026-02-16T13:08:00+09:00
 description: "토큰 비용을 절약하는 Ecomode와 최대 병렬 처리를 위한 Ultrawork 모드 활용법"
 tags: ["OMC", "Ecomode", "Ultrawork", "비용 최적화"]
@@ -60,7 +60,7 @@ Ecomode를 사용하는 방법은 여러 가지가 있습니다:
 
 대화 중 "eco", "ecomode", "budget" 키워드를 사용하면 자동 활성화됩니다.
 
-```
+```text
 "eco 모드로 블로그 포스트 5개 생성해줘"
 "budget-friendly 방식으로 전체 테스트 실행"
 ```
@@ -212,7 +212,7 @@ while (tasksRemaining) {
 
 "ulw", "ultrawork", "parallel", "fast" 등의 키워드 사용:
 
-```
+```text
 "ultrawork 모드로 전체 테스트 스위트 실행해줘"
 "빠르게 모든 컴포넌트에 TypeScript 타입 추가"
 ```
@@ -440,7 +440,7 @@ Ecomode에서도 수동으로 모델을 지정할 수 있습니다:
 }
 ```
 
-## 마치며
+## 마무리
 
 Ecomode와 Ultrawork는 OMC의 유연성을 보여주는 핵심 기능입니다. 프로젝트의 요구사항, 예산, 일정에 따라 적절한 모드를 선택하면 Claude Code를 더욱 효과적으로 활용할 수 있습니다.
 

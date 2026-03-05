@@ -1,8 +1,8 @@
 ---
-title: "소켓 프로그래밍 기초 - TCP 통신과 프로토콜 설계"
+title: "소켓 프로그래밍 - Java TCP 통신, 프로토콜 설계, 스레드 분리"
 date: 2026-02-16T13:22:00+09:00
 draft: false
-tags: ["네트워크", "소켓", "TCP", "프로토콜"]
+tags: ["네트워크", "소켓", "TCP", "프로토콜", "Java", "Spring Boot"]
 categories: ["네트워크"]
 series: "네트워크"
 description: "Java 소켓 프로그래밍으로 TCP 클라이언트-서버 통신과 커스텀 프로토콜 설계를 배웁니다"
@@ -178,7 +178,7 @@ String response = reader.readLine();
 
 메시지 경계를 명확히 하기 위해 길이 접두사를 사용합니다.
 
-```
+```text
 [4 bytes: message length][N bytes: JSON message]
 ```
 
@@ -914,6 +914,122 @@ public class Main {
 }
 ```
 
+## TCP 통신에서 블로킹 문제와 해결
+
+실제 에이전트 시스템에서 흔히 겪는 문제가 있습니다. 에이전트가 긴 작업을 처리하는 동안 서버의 PING에 응답하지 못하는 것입니다.
+
+### 문제 상황
+
+```text
+Agent → 긴 작업 처리 중... (30초)
+Console → PING 전송
+Agent → 응답 못함 (긴 작업에 블로킹)
+```
+
+`readLine()`으로 메시지를 수신하는 스레드가 직접 긴 작업을 처리하면, 작업이 끝날 때까지 다음 메시지를 읽지 못합니다.
+
+### 해결: Agent 내부 스레드 분리
+
+TCP 수신 스레드와 작업 처리 스레드를 분리하고, `LinkedBlockingQueue`로 연결합니다.
+
+```java
+public class Agent {
+
+    private final BlockingQueue<String> commandQueue = new LinkedBlockingQueue<>();
+    private final ExecutorService worker = Executors.newSingleThreadExecutor();
+
+    public void start() throws Exception {
+        Socket socket = new Socket("서버IP", 9091);
+        BufferedReader in  = new BufferedReader(
+            new InputStreamReader(socket.getInputStream()));
+        PrintWriter    out = new PrintWriter(socket.getOutputStream(), true);
+
+        // 워커 스레드: 긴 작업 처리
+        worker.submit(() -> {
+            while (true) {
+                String cmd = commandQueue.take();
+                doLongTask(cmd);
+                out.println("ACK: " + cmd);
+            }
+        });
+
+        // 메인 스레드: TCP 수신 (블로킹 안됨)
+        String line;
+        while ((line = in.readLine()) != null) {
+            if ("PING".equals(line)) {
+                out.println("PONG");       // 즉시 응답
+            } else {
+                commandQueue.put(line);    // 큐에만 넣고 리턴
+            }
+        }
+    }
+}
+```
+
+### 실행 흐름
+
+```text
+TCP 수신 (메인 스레드)
+   ├── PING → 즉시 PONG
+   ├── 명령 → 큐에만 넣고 리턴
+   └── 기타 → 즉시 처리
+
+워커 스레드 (별도)
+   └── 큐에서 명령 꺼내서 긴 작업 처리
+```
+
+핵심은 `submit()` 호출 시점에 새 스레드가 분기되어 메인 스레드와 병렬로 실행된다는 것입니다.
+
+```text
+시간 →
+
+메인 스레드:  [start()]─[submit()]─[readLine 대기]─[PING→PONG]─[put(cmd)]
+                             ↓
+워커 스레드:             [생성]────[take() 대기]──────────────[꺼냄]─[doLongTask()]
+```
+
+긴 작업이 여러 개 동시에 들어온다면 `newFixedThreadPool(N)`으로 워커 수를 늘릴 수 있습니다.
+
+## Spring Boot TCP 중계 시스템 구조
+
+실무에서 Console-Server-Agent 구조로 TCP 통신을 설계할 때의 아키텍처 패턴입니다.
+
+### 시스템 구조
+
+```text
+Console (명령 발신)
+    ↓ TCP
+Spring Boot Server
+    ├── PostgreSQL (명령 큐 + 이력)
+    ├── TCP → Agent 1
+    └── TCP → Agent 2
+```
+
+- Console이 직접 Agent와 통신하지 않고, Spring Boot Server가 중계
+- Agent는 DB 연결 불필요 (TCP 통신만 담당)
+- DB 관련 작업(명령 저장, 이력 관리)은 Spring Boot 서버가 전담
+
+### 명령 유실 방지가 필요한 경우
+
+TCP만으로는 서버나 Agent 재시작 시 처리 중이던 명령이 유실될 수 있습니다. 이런 경우 DB 기반 명령 큐를 도입합니다.
+
+| 상황 | 설명 |
+|------|------|
+| 서버/Agent 재시작 시 명령 유실 방지 | Agent 재시작 후 PENDING 명령 재전송 |
+| 명령 처리 순서 보장 | 재시작해도 순서 유지 |
+| 감사 로그 / 이력 관리 | 언제 누가 어떤 명령을 내렸는지 추적 |
+| 여러 서버 동시 처리 | `SELECT ... FOR UPDATE SKIP LOCKED`로 중복 실행 방지 |
+
+PostgreSQL을 메시지 큐처럼 사용하는 대표적인 방식:
+
+| 방식 | 장점 | 단점 | 추천 상황 |
+|------|------|------|-----------|
+| PGMQ | 전용 큐 기능, visibility timeout | PostgreSQL 확장 설치 필요 | 전문적인 MQ 기능 필요 시 |
+| LISTEN/NOTIFY | 실시간, 내장 기능 | 메시지 유실 가능 | 실시간 알림/이벤트 |
+| 테이블 기반 | 단순, 메시지 영속성 보장 | 폴링 필요 | 안정성이 중요할 때 |
+
+> **판단 기준**: "서버나 Agent가 죽어도 명령이 반드시 실행되어야 한다"는 요구사항이 있으면 DB 기반 큐가 필요합니다. 단순 실시간 통신만 필요하면 TCP + Agent 내부 스레드 분리로 충분합니다.
+
 ## 마무리
 
 이번 포스트에서는 Java 소켓 프로그래밍의 기초부터 실전 응용까지 다뤘습니다.
@@ -927,11 +1043,14 @@ public class Main {
 - 하트비트로 연결 상태 모니터링
 - 지수 백오프 재연결 전략
 - 버퍼링으로 I/O 성능 최적화
+- 스레드 분리(LinkedBlockingQueue)로 PING 블로킹 문제 해결
+- Spring Boot TCP 중계 구조와 DB 기반 명령 큐로 유실 방지
 
 **다음 단계:**
 - WebSocket과 STOMP 프로토콜 학습
 - Netty 프레임워크로 고성능 서버 구현
 - 프로토콜 버퍼(Protobuf) 적용
 - TLS/SSL로 암호화 통신 구현
+- PostgreSQL PGMQ / LISTEN·NOTIFY 실전 적용
 
 소켓 프로그래밍은 네트워크 통신의 가장 기본이 되는 기술입니다. 이 기초를 탄탄히 다지면 더 고급 네트워크 프레임워크도 쉽게 이해할 수 있습니다.

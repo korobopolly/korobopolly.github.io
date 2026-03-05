@@ -1,5 +1,5 @@
 ---
-title: "React 시작하기 - 컴포넌트와 JSX 기초"
+title: "React 시작하기 - JSX, 컴포넌트, Props, State, 이벤트 처리"
 date: 2026-02-16T13:14:00+09:00
 draft: false
 tags: ["React", "JavaScript", "프론트엔드", "웹개발"]
@@ -40,7 +40,7 @@ npm run dev
 
 ### 프로젝트 구조
 
-```
+```text
 my-react-app/
 ├── public/
 │   └── vite.svg
@@ -420,6 +420,8 @@ function EventExamples() {
 
 ## 조건부 렌더링
 
+상태에 따라 다른 UI를 렌더링하는 방법입니다. if-else, 삼항 연산자, 논리 연산자를 활용할 수 있습니다.
+
 ```tsx
 interface StatusProps {
   status: "loading" | "success" | "error";
@@ -449,6 +451,8 @@ function App() {
 ```
 
 ## 리스트 렌더링
+
+배열 데이터를 `map()`으로 순회하여 렌더링합니다. 각 항목에는 고유한 `key` prop이 필수입니다.
 
 ```tsx
 interface Todo {
@@ -497,6 +501,8 @@ function TodoList() {
 ```
 
 ## 폼 처리
+
+제어 컴포넌트 패턴으로 폼 상태를 React state와 동기화합니다. `onChange` 핸들러로 입력값을 관리하고 `onSubmit`으로 제출을 처리합니다.
 
 ```tsx
 interface FormData {
@@ -563,7 +569,7 @@ function SignupForm() {
 }
 ```
 
-## 마치며
+## 마무리
 
 React의 핵심 개념을 정리하면:
 

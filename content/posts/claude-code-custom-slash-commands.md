@@ -1,5 +1,5 @@
 ---
-title: "커스텀 슬래시 커맨드 - 반복 작업을 자동화하는 방법"
+title: "Claude Code 커스텀 슬래시 커맨드 - 커맨드 파일 구조와 실전 예제"
 date: 2026-02-16T13:02:00+09:00
 description: "프로젝트에 맞는 커스텀 슬래시 커맨드를 만들어 반복 작업을 자동화하는 방법"
 tags: ["Claude Code", "슬래시 커맨드", "자동화"]
@@ -20,7 +20,7 @@ Claude Code에서 슬래시 커맨드(Slash Command)는 `/commit`, `/plan`, `/re
 
 다음과 같은 상황을 생각해봅시다:
 
-```
+```text
 "새 블로그 포스트를 만들어줘. 제목은 [title]이고, 날짜는 오늘,
 태그는 [tags], 시리즈는 [series]로 설정하고,
 /content/posts/ 디렉토리에 slug 형식으로 파일명 만들고,
@@ -29,7 +29,7 @@ Claude Code에서 슬래시 커맨드(Slash Command)는 `/commit`, `/plan`, `/re
 
 이런 지시를 매번 반복하는 것은 비효율적입니다. 커스텀 커맨드를 만들면:
 
-```
+```text
 /new-post "Next.js 서버 액션 가이드" --tags "Next.js, React" --series "Next.js 심화"
 ```
 
@@ -162,7 +162,7 @@ After creation, show me the file path and ask if I want to edit anything.
 ```
 
 **사용 예:**
-```
+```text
 /new-post "React Server Components 완벽 가이드" --tags "React, Next.js, RSC" --series "Next.js 심화"
 ```
 
@@ -235,7 +235,7 @@ Show me the results before committing the update.
 ```
 
 **사용 예:**
-```
+```text
 /update-deps
 /update-deps --scope next
 /update-deps --scope dev
@@ -317,7 +317,7 @@ Run all steps and show me the consolidated report.
 ```
 
 **사용 예:**
-```
+```text
 /test-full
 /test-full --watch
 ```
@@ -388,7 +388,7 @@ Show me the preview URL and the test checklist.
 ```
 
 **사용 예:**
-```
+```text
 /deploy-preview
 /deploy-preview --message "Testing new search feature"
 ```
@@ -538,7 +538,7 @@ Changes:
 -->
 ```
 
-## 마치며
+## 마무리
 
 커스텀 슬래시 커맨드는 Claude Code를 프로젝트의 워크플로우에 완벽하게 통합하는 강력한 방법입니다. 반복적인 작업을 자동화하고, 팀의 베스트 프랙티스를 코드화하며, 일관된 품질을 유지할 수 있습니다.
 

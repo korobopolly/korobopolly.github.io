@@ -1,6 +1,6 @@
 ---
-title: "디자인 패턴 실전 가이드 - Java로 배우는 핵심 패턴"
-date: 2026-02-16T13:17:00+09:00
+title: "Java 디자인 패턴 - Singleton, Builder, Observer, Strategy 구현"
+date: 2026-02-16T13:15:00+09:00
 draft: false
 tags: ["Java", "디자인패턴", "객체지향", "설계"]
 categories: ["Java"]

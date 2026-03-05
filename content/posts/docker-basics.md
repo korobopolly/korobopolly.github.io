@@ -1,5 +1,5 @@
 ---
-title: "Docker 시작하기 - 컨테이너 기초부터 실전까지"
+title: "Docker 시작하기 - Dockerfile, Compose, 멀티스테이지 빌드"
 date: 2026-02-16T13:22:00+09:00
 draft: false
 tags: ["Docker", "컨테이너", "DevOps", "배포"]
@@ -16,7 +16,7 @@ description: "Docker의 핵심 개념과 실전 컨테이너 활용법을 알아
 
 ### 컨테이너 vs 가상머신 (VM)
 
-```
+```text
 [ VM 구조 ]                    [ Container 구조 ]
 ┌──────────────┐              ┌──────────────┐
 │   App A      │              │   App A      │
@@ -406,7 +406,7 @@ docker run -d \
 ### Spring Boot + MySQL + Redis 예제
 
 **디렉토리 구조**
-```
+```text
 project/
 ├── docker-compose.yml
 ├── backend/
@@ -496,7 +496,7 @@ networks:
 
 **.env 파일**
 
-```bash
+```text
 MYSQL_ROOT_PASSWORD=root123
 MYSQL_PASSWORD=user123
 ```
@@ -702,7 +702,7 @@ dive my-app:1.0
 
 ---
 
-## 정리
+## 마무리
 
 ### Docker 핵심 개념
 

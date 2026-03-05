@@ -1,5 +1,5 @@
 ---
-title: "Hugo 시작하기 - 설치부터 로컬 빌드까지"
+title: "Hugo 시작하기 - 설치, 사이트 생성, GitHub Pages 배포"
 date: 2026-02-16T14:00:00+09:00
 draft: false
 tags: ["Hugo", "블로그", "정적사이트"]
@@ -73,7 +73,7 @@ cd my-blog
 
 생성되는 디렉토리 구조:
 
-```
+```text
 my-blog/
 ├── archetypes/    # 새 글 템플릿
 ├── content/       # 마크다운 콘텐츠

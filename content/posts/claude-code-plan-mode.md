@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Plan Mode 완벽 가이드 - 체계적인 코드 설계"
+title: "Claude Code Plan Mode - 워크플로우, 설계 계획 수립, 활용 팁"
 date: 2026-02-16T13:05:00+09:00
 draft: false
 tags: ["Claude Code", "Plan Mode", "코드설계", "AI코딩"]
@@ -40,7 +40,7 @@ Plan Mode는 모든 작업에 필요한 것은 아닙니다. 다음과 같은 �
 
 Plan Mode에 진입하면 Claude Code는 코드 수정 도구(Edit, Write 등)를 사용할 수 없고, 대신 탐색 도구에 집중합니다.
 
-```bash
+```text
 # 주로 사용하는 탐색 도구들
 - Glob: 파일 패턴 검색
 - Grep: 코드 내용 검색

@@ -1,5 +1,5 @@
 ---
-title: "암호화 기초 - RSA, AES, 디지털 서명 이해하기"
+title: "암호화 기초 - AES, RSA, 디지털 서명, 패스워드 해싱, 하이브리드 암호화"
 date: 2026-02-16T13:25:00+09:00
 draft: false
 tags: ["보안", "암호화", "RSA", "AES"]
@@ -211,7 +211,7 @@ public static SecretKey keyFromPassword(String password, byte[] salt) throws Exc
 
 ### 공개키/개인키 원리
 
-```
+```text
 [발신자]                          [수신자]
 평문 ──> 수신자 공개키로 암호화 ──> 암호문 ──> 개인키로 복호화 ──> 평문
 ```
@@ -356,7 +356,7 @@ public class RSAExample {
 
 RSA 개인키는 PKCS#8 형식으로 저장됩니다.
 
-```
+```text
 -----BEGIN PRIVATE KEY-----
 MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC...
 (Base64 인코딩된 키)
@@ -366,7 +366,7 @@ MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC...
 
 공개키는 X.509 형식입니다.
 
-```
+```text
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
 (Base64 인코딩된 키)
@@ -380,7 +380,7 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
 
 ### 서명 원리
 
-```
+```text
 [서명 생성]
 원본 데이터 ──> SHA-256 해시 ──> 개인키로 서명 ──> 서명값
 
@@ -765,7 +765,7 @@ public class LicenseExample {
 
 ### 라이선스 키 구조
 
-```
+```text
 [Payload: Base64 URL-safe].[Signature: Base64 URL-safe]
 
 Payload (JSON):
@@ -791,7 +791,7 @@ RSA는 느리고 큰 데이터를 암호화할 수 없으므로, AES와 조합�
 
 ### 동작 원리
 
-```
+```text
 1. 송신자가 랜덤 AES 키 생성
 2. AES 키로 대용량 데이터 암호화 (빠름)
 3. RSA 공개키로 AES 키 암호화 (작은 데이터)

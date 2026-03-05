@@ -1,5 +1,5 @@
 ---
-title: "GitHub Actions CI/CD 파이프라인 구축 - 자동 빌드부터 배포까지"
+title: "GitHub Actions CI/CD - Spring Boot, React, Docker 빌드와 배포"
 date: 2026-02-16T13:23:00+09:00
 draft: false
 tags: ["GitHub Actions", "CI/CD", "DevOps", "배포"]
@@ -680,7 +680,7 @@ services:
       - backend
 ```
 
-## 마치며
+## 마무리
 
 GitHub Actions를 활용한 CI/CD 파이프라인 구축의 핵심은 다음과 같습니다:
 

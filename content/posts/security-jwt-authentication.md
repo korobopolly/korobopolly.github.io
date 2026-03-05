@@ -1,5 +1,5 @@
 ---
-title: "JWT 인증 시스템 - 토큰 기반 인증의 모든 것"
+title: "JWT 인증 시스템 - Spring Security 통합, Refresh Token, 보안 설정"
 date: 2026-02-16T13:24:00+09:00
 draft: false
 tags: ["보안", "JWT", "인증", "Spring Security"]
@@ -20,7 +20,7 @@ description: "JWT를 활용한 토큰 기반 인증 시스템의 원리와 Sprin
 
 전통적인 방식으로, 서버가 세션 정보를 메모리나 DB에 저장합니다.
 
-```
+```text
 1. 사용자 로그인 → 서버가 세션 ID 생성 → 메모리/DB 저장
 2. 클라이언트에 세션 ID 쿠키 전송
 3. 이후 요청마다 쿠키로 세션 ID 전송 → 서버가 세션 저장소 조회
@@ -39,7 +39,7 @@ description: "JWT를 활용한 토큰 기반 인증 시스템의 원리와 Sprin
 
 서버가 상태를 저장하지 않는 무상태(stateless) 방식입니다.
 
-```
+```text
 1. 사용자 로그인 → 서버가 JWT 토큰 생성 및 서명
 2. 클라이언트에 토큰 전송 (JSON 응답)
 3. 이후 요청마다 Authorization 헤더에 토큰 포함
@@ -59,7 +59,7 @@ description: "JWT를 활용한 토큰 기반 인증 시스템의 원리와 Sprin
 
 JWT는 `.`으로 구분된 세 부분으로 구성됩니다.
 
-```
+```text
 Header.Payload.Signature
 ```
 
@@ -105,7 +105,7 @@ Base64 URL 인코딩 후 중간 부분이 됩니다.
 
 Header와 Payload를 비밀키로 서명합니다.
 
-```
+```text
 HMACSHA256(
   base64UrlEncode(header) + "." + base64UrlEncode(payload),
   secret  # 최소 256비트(32바이트) 무작위 키
@@ -129,7 +129,7 @@ String token = jwtUtil.generateToken(username);
 
 클라이언트는 HTTP 요청 헤더에 토큰을 포함합니다.
 
-```
+```text
 GET /api/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzA4MDU2MDAwLCJleHAiOjE3MDgwNTk2MDB9.abc123...
 ```

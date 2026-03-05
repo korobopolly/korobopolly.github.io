@@ -1,5 +1,5 @@
 ---
-title: "CLAUDE.md 가이드 - 프로젝트 컨텍스트 관리하기"
+title: "CLAUDE.md - 프로젝트 규칙, 코딩 컨벤션, 워크플로우 설정"
 date: 2026-02-16T13:01:00+09:00
 description: "CLAUDE.md 파일을 활용하여 Claude Code에 프로젝트 지침과 컨텍스트를 효과적으로 전달하는 방법"
 tags: ["Claude Code", "CLAUDE.md", "프로젝트 설정"]
@@ -287,7 +287,7 @@ README.md, CONTRIBUTING.md 등 다른 프로젝트 문서와 일관성을 유지
 
 CLAUDE.md가 너무 길면 Claude Code가 핵심 내용을 놓칠 수 있습니다. 중요한 규칙과 자주 참조할 내용 위주로 간결하게 유지하고, 상세한 내용은 별도 문서로 분리하세요.
 
-## 마치며
+## 마무리
 
 CLAUDE.md는 단순한 설정 파일이 아니라 Claude Code와 효과적으로 협업하기 위한 커뮤니케이션 도구입니다. 프로젝트의 맥락을 명확히 전달하고 일관된 코드 품질을 유지하는 데 큰 도움이 됩니다.
 

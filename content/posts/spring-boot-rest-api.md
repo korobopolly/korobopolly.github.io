@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot REST API 구현 가이드 - 실전 CRUD 개발"
+title: "Spring Boot REST API - Controller, JPA CRUD, 예외 처리"
 date: 2026-02-16T13:13:00+09:00
 draft: false
 tags: ["Spring Boot", "REST API", "CRUD", "백엔드"]
@@ -704,7 +704,7 @@ public class UserService {
 
 ### 프로젝트 구조
 
-```
+```text
 src/main/java/com/example/demo/
 ├── domain/
 │   └── user/
@@ -895,7 +895,7 @@ curl -X PUT http://localhost:8080/api/users/1 \
 curl -X DELETE http://localhost:8080/api/users/1
 ```
 
-## 정리
+## 마무리
 
 Spring Boot로 REST API를 구현할 때 핵심 포인트는 다음과 같습니다.
 

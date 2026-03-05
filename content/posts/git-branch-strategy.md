@@ -1,5 +1,5 @@
 ---
-title: "Git 브랜치 전략과 협업 워크플로우 - 팀 개발의 핵심"
+title: "Git 브랜치 전략 - Git Flow, GitHub Flow, Rebase, Cherry-pick"
 date: 2026-02-16T13:25:00+09:00
 draft: false
 tags: ["Git", "브랜치전략", "협업", "GitHub"]
@@ -36,7 +36,7 @@ git checkout <commit-hash>
 ```
 
 **브랜치 구조 시각화:**
-```
+```text
 main     A --- B --- C
               \
 feature        D --- E
@@ -104,14 +104,14 @@ git merge feature/login
 ```
 
 **Before:**
-```
+```text
 main     A --- B --- C
               \
 feature        D --- E
 ```
 
 **After (Merge):**
-```
+```text
 main     A --- B --- C --- M
               \           /
 feature        D ------- E
@@ -135,14 +135,14 @@ git rebase main
 ```
 
 **Before:**
-```
+```text
 main     A --- B --- C
               \
 feature        D --- E
 ```
 
 **After (Rebase):**
-```
+```text
 main     A --- B --- C
                       \
 feature                D' --- E'
@@ -246,7 +246,7 @@ Git Flow는 Vincent Driessen이 제안한 브랜치 전략으로, 복잡한 릴�
 
 ### 브랜치 종류
 
-```
+```text
 main (production)
   ↓
 develop (개발 베이스)
@@ -319,7 +319,7 @@ git branch -d hotfix/security-patch
 
 ### Git Flow 전체 흐름
 
-```
+```text
 main        o-------o-------o (v1.0)    (v1.1)
              \       \       \
 develop       o---o---o---o---o
@@ -372,7 +372,7 @@ git branch -d feature/add-comment
 
 ### 브랜치 전략 시각화
 
-```
+```text
 main    A --- B --- C --- D --- E
          \         /     /
 feature/1 o-------o     /
@@ -445,7 +445,7 @@ if (featureFlags.newCheckout) {
 ### PR 작성법
 
 **좋은 PR 제목:**
-```
+```text
 ✅ feat: 사용자 프로필 편집 기능 추가
 ✅ fix: 로그인 시 토큰 만료 버그 수정
 ❌ update
@@ -476,7 +476,7 @@ Closes #123
 - 코드 품질, 로직 오류, 보안 이슈 확인
 - 건설적인 피드백 제공
 
-```
+```text
 ✅ "여기서 null 체크를 추가하면 더 안전할 것 같습니다."
 ❌ "이 코드는 완전히 잘못됐네요."
 ```
@@ -637,7 +637,7 @@ git push origin feature/product-list-ui
 ### 3단계: 코드 리뷰 및 병합
 
 **팀장 A가 PR 리뷰:**
-```
+```text
 Review Comment:
 "ProductList 컴포넌트에서 API 호출 시 에러 핸들링이 없는데,
 try-catch로 감싸주시겠어요?"
@@ -709,7 +709,7 @@ git fetch --prune
 
 ### 브랜치 네이밍 규칙 (팀 컨벤션)
 
-```
+```text
 feature/기능명      # feature/login, feature/user-profile
 bugfix/버그명       # bugfix/cart-total-calculation
 hotfix/긴급수정명   # hotfix/security-patch

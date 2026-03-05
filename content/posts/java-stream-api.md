@@ -1,6 +1,6 @@
 ---
-title: "Java Stream API 완벽 가이드 - 함수형 데이터 처리"
-date: 2026-02-16T13:11:00+09:00
+title: "Java Stream API - filter, map, collect와 병렬 스트림"
+date: 2026-02-16T13:14:00+09:00
 draft: false
 tags: ["Java", "Stream", "함수형프로그래밍", "컬렉션"]
 categories: ["Java"]
@@ -575,6 +575,8 @@ List<String> longWords = Arrays.stream(text.split("\\s+"))
 
 ## 성능 최적화 팁
 
+Stream을 올바르게 사용하면 불필요한 오버헤드를 줄이고 처리 속도를 높일 수 있습니다.
+
 1. **적절한 Stream 타입 사용**: IntStream, LongStream, DoubleStream을 사용하면 박싱/언박싱 오버헤드를 피할 수 있습니다.
 
 ```java
@@ -616,7 +618,7 @@ list.stream()
     .collect(Collectors.toList());
 ```
 
-## 결론
+## 마무리
 
 Java Stream API는 컬렉션 데이터를 함수형 스타일로 처리할 수 있는 강력한 도구입니다. 선언적이고 읽기 쉬운 코드를 작성할 수 있으며, 병렬 처리를 통해 성능을 향상시킬 수 있습니다.
 

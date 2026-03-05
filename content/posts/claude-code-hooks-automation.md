@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Hooks - 워크플로우 자동화 시스템"
+title: "Claude Code Hooks - 이벤트 타입, 자동 린팅, 조건부 실행 설정"
 date: 2026-02-16T13:03:00+09:00
 draft: false
 tags: ["Claude Code", "Hooks", "자동화", "워크플로우"]
@@ -219,7 +219,7 @@ Hook 명령어에서는 다음 환경변수를 사용할 수 있습니다.
 
 ### Hook 실행 흐름
 
-```
+```text
 1. Claude Code가 Edit 도구 실행
 2. 파일 수정 완료
 3. PostToolUse hook 트리거

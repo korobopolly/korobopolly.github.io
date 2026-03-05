@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot 캐싱 전략 - Caffeine으로 성능 최적화"
+title: "Spring Boot 캐싱 - Caffeine, @Cacheable, TTL 전략"
 date: 2026-02-16T13:19:00+09:00
 draft: false
 tags: ["Spring Boot", "캐싱", "Caffeine", "성능"]
@@ -187,7 +187,7 @@ Caffeine은 고성능 Java 캐싱 라이브러리로, Guava Cache의 후속작�
 
 ### 의존성 추가
 
-```gradle
+```groovy
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'

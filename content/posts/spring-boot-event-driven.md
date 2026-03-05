@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot 이벤트 기반 아키텍처 - 느슨한 결합의 핵심"
+title: "Spring Boot 이벤트 아키텍처 - @EventListener, @Async, 트랜잭션 이벤트"
 date: 2026-02-16T13:18:00+09:00
 draft: false
 tags: ["Spring Boot", "이벤트", "비동기", "아키텍처"]

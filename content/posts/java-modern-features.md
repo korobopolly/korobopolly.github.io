@@ -1,5 +1,5 @@
 ---
-title: "Java 17+ 주요 기능 가이드 - 최신 자바 핵심 정리"
+title: "Java 17+ 최신 문법 - Record, Sealed Class, Pattern Matching, Virtual Thread"
 date: 2026-02-16T13:10:00+09:00
 draft: false
 tags: ["Java", "Java17", "최신기능", "프로그래밍"]
@@ -384,7 +384,7 @@ String text = "Hello\nWorld";
 text.indent(4);  // 각 줄에 4칸 들여쓰기
 ```
 
-## 마치며
+## 마무리
 
 Java 17 이상의 최신 버전들은 개발자의 생산성을 크게 향상시키는 다양한 기능을 제공합니다. Sealed Classes로 타입 안전성을 높이고, Records로 데이터 클래스를 간결하게 작성하며, Virtual Threads로 고성능 동시성 프로그래밍을 구현할 수 있습니다.
 
